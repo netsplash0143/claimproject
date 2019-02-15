@@ -1,0 +1,25 @@
+<div class="app-body" id="hello_back">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card mx-4" dir="rtl">
+            <div class="card-body my_confirm_reg_box p-4">
+              <h1>Confirm Register</h1>
+              <p class="text-muted">Enter Confirmation Code</p>
+              <form [formGroup]="validations_form" novalidate (ngSubmit)="confirm_register()">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Confirmation Code" formControlName="confirmation_code">
+                </div>
+                <button type="submit" class="btn btn-block btn-success" [disabled]="!validations_form.valid">Confirm Account</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

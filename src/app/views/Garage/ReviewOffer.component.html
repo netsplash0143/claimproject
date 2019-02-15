@@ -1,0 +1,183 @@
+<div class="animated fadeIn my_custom_review_offer">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header">
+          <strong>Assessor Assessment Report</strong>
+        </div>
+        <div class="card-body">
+          <div class="col-md-12">
+            <ul class="list-group claimdata" *ngIf="claimdata">
+       
+              <li class="list-group-item">{{claimdata.assessor_basic_detail.Name}}<span>:Name</span></li>
+              <li class="list-group-item">
+                <a href="{{claimdata.assessor_report_info.reportfile}}" class="btn btn-sm btn-info my_info_download" download>
+                    <img src="../../../assets/images/pdf_download.jpeg" width="100%">
+                 </a>
+                <span class="col-sm-6 my_assessment_report">:Assessment Report File</span>
+              </li>
+              <li class="list-group-item">${{claimdata.assessor_report_info.assessor_charge}}<span>:Work
+                  amount for event</span></li>
+              <li class="list-group-item">${{claimdata.assessor_report_info.spareparts_amount}}<span>:Spare
+                  parts amount for this event</span></li>
+            </ul>
+          </div>
+        </div>
+        <form [formGroup]="validations_form" novalidate (ngSubmit)="submit()">
+          <div class="card">
+            <div class="card-header">
+              <strong> Garage Offer</strong> Form
+            </div>
+            <div class="card-body">
+              <div class="col-md-12">
+                <!-- Nav tabs -->
+                <div class="form-group row ">
+                  <div class="col-md-7">
+                    <div class="input-prepend input-group">
+                      <input id="appendedPrependedInput" class="form-control" size="16" type="text" formControlName="garage_charge">
+                      <div class="input-group-append">
+                        <span class="input-group-text">$</span>
+                      </div>
+                    </div>
+                  </div>
+                  <label class="col-form-label col-md-5" for="appendedPrependedInput">work amount for event</label>
+                </div>
+                <div class="form-group row ">
+                  <div class="col-md-7">
+                    <div class="input-prepend input-group">
+                      <input class="form-control" size="16" type="text" formControlName="parts_amount">
+                      <div class="input-group-append">
+                        <span class="input-group-text">$</span>
+                      </div>
+                    </div>
+                  </div>
+                  <label class="col-form-label col-md-5" for="appendedPrependedInput">Spare parts Amount</label>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-7 col-form-label custom_checkbox">
+                    <div class="form-check" *ngFor="let control of serviceArray.controls; let i = index">
+                      <input class="form-check-input" [formControl]="control" type="checkbox" (change)="get_selected_additional_service_value()">
+                      <label class="form-check-label" for="checkbox{{i}}">
+                        {{additional_services[i]}}
+                      </label>
+                    </div>
+
+                  </div>
+                  <label class="col-md-5 col-form-label">Additional services</label>
+                  <!-- <small id="fnhelp" *ngIf="additional_services_error" class="form-text custom-invalid-feedback">At
+                    lease choose one service</small> -->
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div *ngIf="response!=''">
+                <span [ngClass]="(errflag==false)?'alert alert-success':'alert alert-danger'">{{response}}</span>
+              </div>
+
+              <button type="submit" class="btn btn-primary pull-right" [disabled]="!validations_form.valid">Place Offer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="card">
+        <div class="card-header">
+          <strong>Claim Information</strong>
+        </div>
+        <div class="card-body">
+          <div class="col-md-12">
+            <ul class="list-group claimcontent" *ngIf="claimdata">
+              <li class="list-group-item active">
+                <p class="my_list_active">{{ claimdata.claim_unq_id}} :Claim Unique ID<button class="btn btn-success custom_uppercase_text">{{
+                    claimdata.status}}</button>
+                </p>
+              </li>
+              <li class="list-group-item">{{ claimdata.Insurance_company_name}} <span>:Insurance Company Name</span></li>
+              <li class="list-group-item">{{ claimdata.Insurance_agent_name}}<span>:Insurance Agent Name</span></li>
+              <li class="list-group-item">{{ claimdata.Insured_name}} <span>:Insured_name</span></li>
+              <li class="list-group-item">{{ claimdata.Insured_id_number}}<span>: Insured_id_number</span></li>
+              <li class="list-group-item">{{ claimdata.Insured_address}}<span>: Insured_address</span></li>
+              <li class="list-group-item">{{ claimdata.Insured_cellphone}}<span>:Insured_cellphone</span></li>
+              <li class="list-group-item claim_subhead">
+                <strong>Car Information</strong>
+                <ul class="list-group" *ngIf="claimdata">
+                  <li class="list-group-item">{{ claimdata.car_manufacturer}}<span>: Manufecturer</span></li>
+                  <li class="list-group-item">{{ claimdata.car_model}}<span>:Model</span></li>
+                  <li class="list-group-item">{{ claimdata.car_year}}<span>: Year</span></li>
+                  <li class="list-group-item">{{ claimdata.Car_damage_description}}<span>:Damage Description</span></li>
+                  <li class="list-group-item">{{ claimdata.Car_damage_location}}<span>:Damage Location</span></li>
+                </ul>
+              </li>
+              <li class="list-group-item">{{ claimdata.License_plate_number}}<span>:License_plate_number</span></li>
+              <li class="list-group-item">{{ claimdata.Driver_at_event_time}}<span>:Driver at a event time</span></li>
+              <li class="list-group-item claim_subhead">
+                <strong>Driver Information</strong>
+                <ul class="list-group">
+                  <li class="list-group-item">{{ claimdata.Driver_name}}<span>:Name</span></li>
+                  <li class="list-group-item">{{ claimdata.Driver_id_number}}<span>: Driver_id_number</span></li>
+                  <li class="list-group-item">{{ claimdata.Driver_gender}}<span>: Gender</span></li>
+                  <li class="list-group-item">{{ claimdata.Driver_birthdate}}<span>:Date of Birth</span></li>
+                  <li class="list-group-item">{{ claimdata.Driver_cellphone}}<span>:Cellphone</span></li>
+                  <li class="list-group-item">{{ claimdata.Driver_address}}<span>:Address</span></li>
+                  <li class="list-group-item">{{claimdata.Driver_date_of_issuance_of_license}}<span>:Date of issuance of
+                    license</span></li>
+                </ul>
+              </li>
+              <li class="list-group-item claim_subhead">
+                <strong>Event Information</strong>
+                <ul class="list-group">
+                  <li class="list-group-item">{{ claimdata.Event_date}}<span>:Date</span></li>
+                  <li class="list-group-item">{{ claimdata.Event_time}}<span>:Time</span></li>
+                  <li class="list-group-item">{{ claimdata.Event_place}}<span>:Place</span></li>
+                  <li class="list-group-item">{{ claimdata.Event_description}}<span>: Description</span></li>
+                  <li class="list-group-item">{{ claimdata.Event_occured_on}}<span>:Event occured on</span></li>
+                  <li class="list-group-item">{{ claimdata.Event_fault}}<span>:Event fault</span></li>
+                </ul>
+              </li>
+
+              <li class="list-group-item">{{ claimdata.Road_type}}<span>: Road Type</span></li>
+              <li class="list-group-item">{{ claimdata.police_involved}}<span>:Police Involved</span></li>
+              <li class="list-group-item claim_subhead" *ngIf="claimdata.police_involved==yes">
+                <strong>Police involvement Information</strong>
+                <ul class="list-group">
+                  <li class="list-group-item">{{ claimdata.police_station_name}}<span>:police_station_name</span></li>
+                  <li class="list-group-item">{{ claimdata.License_suspension}}<span>:License_suspension</span></li>
+                </ul>
+              </li>
+              <li class="list-group-item">{{ claimdata.Number_of_involved_car}}<span>:Number of Involved car</span></li>
+              <li class="list-group-item claim_subhead" *ngIf="claimdata.Number_of_involved_car>1">
+                <strong>Third Parties details</strong>
+                <ul class="list-group" *ngFor="let thirdparty of claimdata.Thirparties; index as i;">
+                  <li class="list-group-item">{{ thirdparty.name}}<span>:Name</span></li>
+                  <li class="list-group-item">{{ thirdparty.insurance_company_name}}<span>:Insurance Company Name</span></li>
+                  <li class="list-group-item">{{ thirdparty.license_plate_number}}<span>:license plate Number</span></li>
+                  <li class="list-group-item">{{ thirdparty.address}}<span>:Address</span></li>
+                  <li class="list-group-item">{{ thirdparty.cellphone}}<span>:Cellphone</span></li>
+                  <li class="list-group-item claim_subhead">
+                    <strong>Car Information</strong>
+                    <ul class="list-group">
+                      <li class="list-group-item">{{ thirdparty.car_manufacturer}}<span>:Manufecturer</span></li>
+                      <li class="list-group-item">{{ thirdparty.car_model}}<span>:Model</span></li>
+                      <li class="list-group-item">{{ thirdparty.car_year}}<span>:Year</span></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="list-group-item">{{ claimdata.body_injured}}<span>:Body Injured</span></li>
+              <li class="list-group-item claim_subhead" *ngIf="claimdata.body_injured=='yes'">
+                <strong>Body Injured details</strong>
+                <ul class="list-group" *ngFor="let bi of claimdata.Injured_persons; index as j;">
+                  <li class="list-group-item">{{ bi.name}}<span>:Name</span></li>
+                  <li class="list-group-item">{{ bi.address}}<span>:Address</span></li>
+                  <li class="list-group-item">{{ bi.phone_number}}<span>:Cellphone</span></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

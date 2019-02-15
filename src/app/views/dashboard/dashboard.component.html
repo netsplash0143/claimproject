@@ -1,0 +1,113 @@
+<div class="animated fadeIn">
+  <!-- Garage role start -->
+  <div class="row" *ngIf="role=='garage'">
+    <div class="col-6 col-md-3 col-lg-3">
+
+    </div>
+    <div class="col-12 col-md-3 col-lg-3">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="nav-icon icon-envelope-letter bg-primary p-3 font-2xl ml-3 float-right"></i>
+          <div class="h5 text-primary mb-0 mt-2">{{newclaimofferscount}}</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">New Claim Offer</div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted text-right" [routerLink]="['/garage/new-offer-list']"><i
+              class="fa fa-angle-left float-left font-lg"></i>View More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3 col-lg-3">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="nav-icon icon-social-dropbox bg-primary p-3 font-2xl ml-3 float-right"></i>
+          <div class="h5 text-primary mb-0 mt-2">{{oldclaimofferscount}}</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">Offer History</div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted text-right" [routerLink]="['/garage/old-offer-list']"><i
+              class="fa fa-angle-left float-left font-lg"></i>View More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 col-lg-3">
+      <div class="card">
+        <form [formGroup]="validations_form" novalidate (ngSubmit)="updatelogo()">
+          <div class="card-body">
+            <div class="form-group row">
+              <div class="col-sm-8">
+                <div class="custom_img_upld">
+                  <img src="{{logo}}" *ngIf="logo" alt="logo" style="width:100%">
+                  <img src="http://goo.gl/pB9rpQ" *ngIf="!logo" alt="logo" style="width:100%">
+                  <input type="file" style="display:none"  accept="image/*" #fileinput formControlName="logofile" (change)="onFileselected($event)" />
+                  <button class="btn btn-info upbtn" (click)="fileinput.click();$event.preventDefault()">{{btnname}}</button>
+                </div>
+              </div>
+              <label class="col-md-4 col-form-label" for="hf-file">Logo</label>
+            </div>
+          </div>
+          <div class="card-footer text-right" >
+              <label class="pull-left"><star-rating [rating]="avg_rating" [showHalfStars]="true" [readOnly]="true"></star-rating></label>
+            <button type="submit" class="btn btn-sm btn-success"> Update <i class="fa fa-dot-circle-o"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Garage role end -->
+  <!-- Assessor role start -->
+  <div class="row" *ngIf="role=='assessor'">
+      <div class="col-6 col-md-3 col-lg-3">
+      </div>
+    <div class="col-6 col-md-3 col-lg-3">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="nav-icon icon-cursor bg-primary p-3 font-2xl ml-3 float-right"></i>
+          <div class="h5 text-primary mb-0 mt-2">{{newclaimreqcount}}</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">Active Claim Request</div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted text-right" [routerLink]="['/assessor/activeclaims']"><i class="fa fa-angle-left float-left font-lg"></i>View
+            More </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 col-lg-3">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="nav-icon icon-badge bg-primary p-3 font-2xl ml-3 float-right"></i>
+          <div class="h5 text-primary mb-0 mt-2">{{oldclaimreqcount}}</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">Claim Request History</div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted text-right" [routerLink]="['/assessor/old-claim-list']"><i
+              class="fa fa-angle-left float-left font-lg"></i>View More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 col-lg-3">
+      <div class="card">
+        <form [formGroup]="validations_form" novalidate (ngSubmit)="updatelogo()">
+          <div class="card-body">
+            <div class="form-group row">
+              <div class="col-sm-8">
+                <div class="custom_img_upld">
+                  <img src="{{logo}}" *ngIf="logo" alt="Avatar" style="width:100%">
+                  <img src="http://goo.gl/pB9rpQ" *ngIf="!logo" alt="Avatar" style="width:100%">
+                  <input type="file" style="display:none"  accept="image/*" #fileinput formControlName="logofile" (change)="onFileselected($event)" />
+                  <button class="btn btn-info upbtn" (click)="fileinput.click();$event.preventDefault()">{{btnname}}</button>
+                </div>
+              </div>
+              <label class="col-md-4 col-form-label" for="hf-file">Avatar</label>
+            </div>
+          </div>
+          <div class="card-footer text-right" >
+            <label class="pull-left"><star-rating [rating]="avg_rating" [showHalfStars]="true" [readOnly]="true"></star-rating></label>
+            <button type="submit" class="btn btn-sm btn-success"> Update <i class="fa fa-dot-circle-o"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Assessor role end -->
+</div>

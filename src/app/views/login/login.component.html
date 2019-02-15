@@ -1,0 +1,90 @@
+<div class="app-body" id="hello_back">
+  <main class="main d-flex align-items-center my_login_main" dir="rtl">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-10 col-lg-8 mx-auto login_main_box">
+          <div class="card-group">
+            <div class="card p-4 login_left_box">
+              <div class="card-body">
+                <form [formGroup]="validations_form" novalidate (ngSubmit)="login()">
+                  <h1 class="login-heading">Login</h1>
+                  <p class="text-muted login-subtext text-right">Sign In to your account</p>
+                  <p class="error" *ngIf="error!=false">{{error_msg}}</p>
+                  <div class="input-group mb-3">
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="icon-phone"></i></span>
+                    </div>
+                    <input type="text" class="form-control" minlength="10" maxlength="10" placeholder="Mobile Number" formControlName="mobile_number">
+
+                  </div>
+
+                  <div *ngIf="validations_form.controls['mobile_number'].invalid && (validations_form.controls['mobile_number'].dirty || validations_form.controls['mobile_number'].touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="validations_form.controls['mobile_number'].errors.required">
+                      Mobile Number is required
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-4">
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                  </div>
+
+                  <div *ngIf="validations_form.controls['password'].invalid && (validations_form.controls['password'].dirty || validations_form.controls['password'].touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="validations_form.controls['password'].errors.required">
+                      Password is required
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6 col-md-5 col-lg-5 col-xl-6">
+                      <button type="submit" class="btn btn-primary px-4 my_login_align" [disabled]="!validations_form.valid">Login</button>
+                    </div>
+                    <div class="col-6 col-md-7 col-lg-7 col-xl-6">
+                      <button type="button" class="btn btn-link px-0" (click)="redirect_forget_password()">Forgot
+                        password</button>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                          <a class="nav-link my_text_right_login" [routerLink]="['/admin']"><span>Login as Admin</span></a>
+                      </div>
+                      <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                          <a class="nav-link my_text_right_login" [routerLink]="['/insurance-coy']"><span>Insurance company Login</span></a>
+                      </div>
+                    </div>
+  
+
+                  <div class="row">
+                    <div class="col-12 text-center">
+                      <a class="nav-link" [routerLink]="['/home']"><span>Back to Home</span></a>
+                    </div>
+                  </div>
+                </form>
+
+
+              </div>
+            </div>
+            <div class="card text-white bg-primary py-5 d-md-down-none sign_up_algn signup_right_box" style="width:44%; display: flex !important;">
+              <div class="card-body text-center">
+                <div>
+                  <h2>Sign up</h2>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua.</p>
+                    <div class="row">
+                    <div class="col-md-6"> <button type="button" class="btn btn-primary active mt-3" [routerLink]="['/register-garage']">Register Garage</button></div>    
+                    <div class="col-md-6"> <button type="button" class="btn btn-primary active mt-3" [routerLink]="['/register-assessor']">Register Assessor</button></div>    
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,180 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="card-header">
+          <p class="basictitle"><i class="fa fa-align-justify"></i> Basic Information</p>
+        </div>
+        <form [formGroup]="basic_form" novalidate (ngSubmit)="basic_info_update()">
+          <div class="card-body table-responsive">
+            <div class="modal-body">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Garage Name" formControlName="Name">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-home"></i></span>
+                </div>
+              </div>
+              <div *ngIf="basic_form.controls['Name'].invalid && (basic_form.controls['Name'].dirty || basic_form.controls['Name'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="basic_form.controls['Name'].errors.required">
+                  Garage Name is required.
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Contact Person Name" formControlName="Contact_name">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="icon-user"></i></span>
+                </div>
+              </div>
+              <div *ngIf="basic_form.controls['Contact_name'].invalid && (basic_form.controls['Contact_name'].dirty || basic_form.controls['Contact_name'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="basic_form.controls['Contact_name'].errors.required">
+                  Contact Person Name is required.
+                </div>
+              </div>
+
+
+              <div class="input-group mb-3">
+                <input type="text" readonly class="form-control" placeholder="Email" formControlName="email">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="icon-envelope"></i></span>
+                </div>
+              </div>
+
+              <div class="input-group mb-3">
+                <input type="text" readonly class="form-control" placeholder="Mobile Number" formControlName="cell_phone_number">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="icon-phone"></i></span>
+                </div>
+              </div>
+
+              <div class="input-group mb-4">
+                  <input ngx-google-places-autocomplete  class="form-control" formControlName="city"
+                  #placesRef="ngx-places" (onAddressChange)="onAddressChange($event)"  />
+             
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-address-card-o"></i></span>
+                </div>
+              </div>
+              <div *ngIf="basic_form.controls['city'].invalid && (basic_form.controls['city'].dirty || basic_form.controls['city'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="basic_form.controls['city'].errors.required">
+                  city is required.
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+          <div class="card-footer custom_changepw_footer">
+            <button type="submit" class="btn btn-info" [disabled]="!basic_form.valid">Update Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card">
+        <div class="card-header">
+          <p class="basictitle"><i class="fa fa-align-justify"></i> Business Profile</p>
+        </div>
+        <form [formGroup]="business_form" novalidate (ngSubmit)="updatebusinessinfo()">
+          <div class="card-body table-responsive">
+            <div class="modal-body">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Business Id Number" formControlName="business_id_number">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-id-card-o"></i></span>
+                </div>
+              </div>
+              <div *ngIf="business_form.controls['business_id_number'].invalid && (business_form.controls['business_id_number'].dirty || business_form.controls['business_id_number'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="business_form.controls['business_id_number'].errors.required">
+                  Business Id Number is required.
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="License Number" formControlName="License_number">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-id-card-o"></i></span>
+                </div>
+              </div>
+              <div *ngIf="business_form.controls['License_number'].invalid && (business_form.controls['License_number'].dirty || business_form.controls['License_number'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="business_form.controls['License_number'].errors.required">
+                  License Number is required.
+                </div>
+              </div>
+              <div class="input-group mb-4">
+                <div class="col-sm-4 col-12 my_edit_profile_switch">
+                  <label class="switch switch-label switch-success">
+                    <input type="checkbox" class="switch-input" formControlName="authorized_importer">
+                    <span class="switch-slider" data-checked="yes" data-unchecked="no"></span>
+                  </label>
+                </div>
+                <div class="col-sm-8 my_authrize">
+                  <div>
+                    <span class="input-group-text">Is Authorized Importer?</span>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="business_form.controls['authorized_importer'].invalid && (business_form.controls['authorized_importer'].dirty || business_form.controls['authorized_importer'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="business_form.controls['authorized_importer'].errors.required">
+                  Authorized Importer is required.
+                </div>
+              </div>
+              <div class="input-group mb-4">
+                <div class="col-sm-4 col-12 my_edit_profile_switch">
+                  <label class="switch switch-label switch-success">
+                    <input type="checkbox" class="switch-input" formControlName="delivery_allowed" (change)="ondeliveryoption($event)">
+                    <span class="switch-slider" data-checked="yes" data-unchecked="no"></span>
+                  </label>
+                </div>
+                <div class="col-sm-8 my_authrize">
+                  <div>
+                    <span class="input-group-text">Is delivery Available?</span>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="business_form.controls['delivery_allowed'].invalid && (business_form.controls['delivery_allowed'].dirty || business_form.controls['delivery_allowed'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="business_form.controls['delivery_allowed'].errors.required">
+                  delivery_allowed is required.
+                </div>
+              </div>
+              <div class="input-group mb-3" *ngIf="isdeliveryoption">
+                <input type="number" class="form-control" min=1 placeholder="Delivery radius" formControlName="delivery_radius" (change)="changeRadius($event)">
+                <div class="input-group-append">
+                  <span class="input-group-text"><i class="fa fa-street-view"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer custom_changepw_footer">
+            <button type="submit" class="btn btn-info" [disabled]="!business_form.valid">Update
+              Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="isdeliveryoption">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <strong>Delivery coverup radius: {{ radius /1609.34}} Miles</strong>
+          </div>
+          <div class="card-body">
+            <agm-map [latitude]="garagelat" [longitude]="garagelng" [zoom]="zoom"> 
+              <agm-marker [latitude]="garagelat" [longitude]="garagelng" [iconUrl]="'assets/img/brand/ball_marker.png'"></agm-marker>
+              <agm-circle [latitude]="garagelat" [longitude]="garagelng" [radius]="radius" [circleDraggable]="cDraggable"
+                [editable]="cDraggable" [fillColor]="'purple'">
+              </agm-circle>
+            </agm-map>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  <!--/.row-->
+</div>

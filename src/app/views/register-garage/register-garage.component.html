@@ -1,0 +1,258 @@
+<div class="app-body" id="hello_back">
+  <main class="main d-flex align-items-center my_main_hello">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 mx-auto">
+          <div class="card mx-4 mob_marg">
+            <div class="card-body p-4">
+              <h1>Register</h1>
+              <div dir="rtl">
+                <p class="text-muted text-right">Create Garage account</p>
+                <form [formGroup]="garage_form" novalidate (ngSubmit)="register_garage()" #garageform="ngForm">
+                  <div class="form-row">
+                    <div class="col-md-4 offset-md-8">
+                      <div class="custom_img_upld">
+                        <img src="{{logo}}" *ngIf="logo" alt="logo" style="width:100%">
+                        <img src="../../../assets/images/up_sample.png" *ngIf="!logo" alt="logo" style="width:100%">
+                        <input type="file" style="display:none" accept="image/*" #fileinput formControlName="logofile"
+                          (change)="onFileselected($event)" />
+                        <button class="btn btn-info upbtn" (click)="fileinput.click();$event.preventDefault()">{{btnname}}</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row" dir="ltr">
+                    <div class="col-md-4 offset-md-8 text-center">
+                      <p [ngClass]="{ 'text-invalid':f.logofile.errors }">*Profile picture is required</p>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="fa fa-home"></i></span>
+                        </div>
+                        <input type="text" class="form-control" [ngClass]="{ 'is-invalid':f.garage_name.errors && f.garage_name.touched }"
+                          placeholder="Garage Name" formControlName="garage_name">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="icon-user"></i></span>
+                        </div>
+                        <input type="text" class="form-control" [ngClass]="{ 'is-invalid':f.contact_name.errors && f.contact_name.touched }"
+                          placeholder="Contact Person Name" formControlName="contact_name">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="fa fa-id-card-o"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Business Id Number" [ngClass]="{ 'is-invalid':f.business_id_number.errors && f.business_id_number.touched }"
+                          formControlName="business_id_number">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="fa fa-id-card-o"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="License Number" [ngClass]="{ 'is-invalid':f.License_number.errors && f.License_number.touched }"
+                          formControlName="License_number">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="icon-envelope"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Email" formControlName="email"  [ngClass]="{ 'is-invalid':f.email.errors && f.email.touched }">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="icon-phone"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Mobile Number" pattern="\d*"  minlength="10" maxlength="10" formControlName="mobile"  [ngClass]="{ 'is-invalid':f.mobile.errors && f.mobile.touched }">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="icon-phone"></i></span>
+                        </div>
+                        <input type="text" class="form-control" [ngClass]="{ 'is-invalid':f.officenumber.errors && f.officenumber.touched }"
+                          placeholder="Office Number" pattern="\d*" formControlName="officenumber">
+                      </div>
+
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="icon-phone"></i></span>
+                        </div>
+                        <input type="text" class="form-control" pattern="\d*" [ngClass]="{ 'is-invalid':f.faxnumber.errors && f.faxnumber.touched }"
+                          placeholder="Fax Number" formControlName="faxnumber">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-3" [ngClass]="{'d-none': radiusflag==false}">
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="icon-lock"></i></span>
+                        </div>
+                        <input type="number" min="0" class="form-control" [ngClass]="{ 'is-invalid':f.delivery_radius.errors && f.delivery_radius.touched }"
+                          placeholder="Delivery Radius" formControlName="delivery_radius">
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <div class="input-group mb-4">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="fa fa-bookmark"></i></span>
+                        </div>
+                        <select class="form-control" formControlName="delivery_allowed" [ngClass]="{ 'is-invalid':f.delivery_allowed.errors && f.delivery_allowed.touched }"
+                          (change)="ondeliverychange($event)">
+                          <option value="">Delivery availability</option>
+                          <option value="1">yes</option>
+                          <option value="0">no</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-5">
+                      <div class="input-group mb-4">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><i class="fa fa-address-card-o"></i></span>
+                        </div>
+                        <input ngx-google-places-autocomplete [options]="options" class="form-control" formControlName="city"
+                          [ngClass]="{ 'is-invalid':f.city.errors && f.city.touched }" #placesRef="ngx-places"
+                          (onAddressChange)="onGarageAddressChange($event)" #garageaddress id="ga" />
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="input-group mb-4">
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="fa fa-bookmark"></i></span>
+                    </div>
+                    <select class="form-control" formControlName="authorized_importer" [ngClass]="{ 'is-invalid':f.authorized_importer.errors && f.authorized_importer.touched }"
+                      (change)="onAuthorizedImporter($event)">
+                      <option value="">Are you a authorized Importer</option>
+                      <option value="1">yes</option>
+                      <option value="0">no</option>
+                    </select>
+                  </div>
+
+                  <div class="input-group mb-3" *ngIf="showmanufacturer">
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="fa fa-id-card-o"></i></span>
+                    </div>
+                    <select class="form-control" formControlName="car_manufacturer_id" multiple>
+                      <option value="">Select Manufacturer</option>
+                      <option *ngFor="let manufacturer of manfacturerlist" [value]="manufacturer.id">{{manufacturer.name}}</option>
+                    </select>
+                  </div>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" [ngClass]="{ 'is-invalid':f.password.errors && f.password.touched }"
+                      placeholder="Password" formControlName="password">
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="fa fa-id-card-o"></i></span>
+                    </div>
+                    <select class="form-control" [ngClass]="{ 'is-invalid':f.payment_method.errors && f.payment_method.touched }"
+                      formControlName="payment_method">
+                      <option value="">Choose Payment Method</option>
+                      <option value="1">Paypal</option>
+                    </select>
+                  </div>
+                  <div class="form-row align-items-center">
+                    <div class="col-md-12">Credit Card Details</div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" [ngClass]="{ 'is-invalid':f.cardholdername.errors && f.cardholdername.touched }"
+                          placeholder="Name of Cardholder" formControlName="cardholdername">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" [ngClass]="{ 'is-invalid':f.cardnumber.errors && f.cardnumber.touched }"
+                          placeholder="Card Number" formControlName="cardnumber">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label><span class="hidden-xs">Expiration</span> </label>
+                        <div class="input-group">
+                          <input type="number" class="form-control" [ngClass]="{ 'is-invalid':f.card_exp_month.errors && f.card_exp_month.touched }"
+                            placeholder="MM" formControlName="card_exp_month">
+                          <input type="number" class="form-control" [ngClass]="{ 'is-invalid':f.card_exp_year.errors && f.card_exp_year.touched }"
+                            placeholder="YY" formControlName="card_exp_year">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV
+                          <i class="fa fa-question-circle"></i></label>
+                        <input type="number" class="form-control" [ngClass]="{ 'is-invalid':f.cvv.errors && f.cvv.touched }"
+                          formControlName="cvv">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row align-items-center">
+                    <div class="col-md-12">Bank Details</div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4">
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" [ngClass]="{ 'is-invalid':f.bank.errors && f.bank.touched }"
+                          placeholder="Name of bank" formControlName="bank">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" [ngClass]="{ 'is-invalid':f.bank_branch_number.errors && f.bank_branch_number.touched }"
+                          placeholder="Bank Branch Number" formControlName="bank_branch_number">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" [ngClass]="{ 'is-invalid':f.bank_account_number.errors && f.bank_account_number.touched }"
+                          placeholder="Bank Account Number" formControlName="bank_account_number">
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-block btn-success" [disabled]="!garage_form.valid">Create
+                    Account</button>
+                  <a class="nav-link text-center" [routerLink]="['/home']"><span>Back to Home</span></a>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

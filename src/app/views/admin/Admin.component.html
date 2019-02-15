@@ -1,0 +1,116 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-6 col-md-2 col-lg-2">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="nav-icon icon-user-follow bg-primary p-3 font-2xl ml-3 float-right"></i>
+          <div class="h5 text-primary mb-0 mt-2">{{ garagelist.length }}</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">Garage</div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted text-right" [routerLink]="['/admin-dashboard/garage']"><i
+              class="fa fa-angle-left float-left font-lg"></i>View More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2 col-lg-2">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="nav-icon icon-user-follow bg-primary p-3 font-2xl ml-3 float-right"></i>
+          <div class="h5 text-primary mb-0 mt-2">{{ assessorlist.length }}</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">Assessors</div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted text-right" [routerLink]="['/admin-dashboard/assessors']"><i
+              class="fa fa-angle-left float-left font-lg"></i>View More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-2 col-lg-2">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="nav-icon icon-globe bg-primary p-3 font-2xl ml-3 float-right"></i>
+          <div class="h5 text-primary mb-0 mt-2">{{ companylist.length }}</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">Insurance Company</div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted text-right" [routerLink]="['/admin-dashboard/insurance-coy']"><i
+              class="fa fa-angle-left float-left font-lg"></i>View More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 col-lg-3">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="nav-icon icon-energy bg-primary p-3 font-2xl ml-3 float-right"></i>
+          <div class="h5 text-primary mb-0 mt-2">{{ activeclaims.length }}</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">Total Active Claims</div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted text-right" [routerLink]="['/admin-dashboard/active-list']"><i
+              class="fa fa-angle-left float-left font-lg"></i>View More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 col-lg-3">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="nav-icon icon-book-open bg-primary p-3 font-2xl ml-3 float-right"></i>
+          <div class="h5 text-primary mb-0 mt-2">{{ oldclaims.length }}</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">Total Completed claims</div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted text-right" [routerLink]="['/admin-dashboard/history-list']"><i
+              class="fa fa-angle-left float-left font-lg"></i>View More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<div class="row">
+    <div class="col-md-7"></div>
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+            <div class="form-group">
+                <label>Manufacturer Name</label>
+                <input type="text" class="form-control" formControlName="manufacture_name">
+                <small *ngIf="!myForm.controls.manufacture_name.valid" class="text-danger">
+                    (minimum 3 characters).
+                </small>
+            </div>
+            <div class="form-group">
+                <a (click)="addmodal()" class="btn btn-primary btn-xs" style="cursor: default">
+                  Add New Vehicle Modal +
+                </a>
+              </div>
+            <div formArrayName="vehicle_modal">
+                <div *ngFor="let language of myForm.controls.vehicle_modal.controls; let i=index" class="panel panel-default">
+                  <div class="panel-heading">
+                    <span>Vehicle Modal {{i + 1}}</span>
+                    <span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.vehicle_modal.controls.length > 1" (click)="removemodal(i)"></span>
+                  </div>
+                  <div class="panel-body" [formGroupName]="i">
+                    <div class="form-group col-xs-6">
+                      <input type="text" class="form-control" placeholder="Enter Vehicle Modal" formControlName="modal_name">
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+            <div class="form-group">
+            <button type="submit" class="btn btn-success" [disabled]="!myForm.valid">Submit</button>
+            </div>
+            <div class="clearfix"></div>
+        
+            <div class="margin-20">
+              <div>Form details:-</div>
+              <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
+              <pre>form value: <br>{{myForm.value | json}}</pre>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>

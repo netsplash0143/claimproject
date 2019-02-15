@@ -1,0 +1,44 @@
+<div class="animated fadeIn" dir="rtl">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i>Claims Request History
+          <div *ngIf="response!=''">
+            <div [ngClass]="(errflag==false)?'alert alert-success':'alert alert-danger'">{{response}}</div>
+          </div>
+        </div>
+        <div class="card-body table-responsive">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Claim Unique Id</th>
+                <th>Insured Name</th>
+                <th>Insurance Company Name</th>
+                <th>Car Model</th>
+                <th>Car Manufacturer</th>
+                <th>Service Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let claim of claimrequestList; let i = index">
+                <td>{{claim.claim_unq_id}}</td>
+                <td>{{claim.Insured_name}}</td>
+                <td>{{claim.Insurance_company_name}}</td>
+                <td>{{claim.car_model}}</td>
+                <td>{{claim.car_manufacturer}}</td>
+                <td>{{claim.scheduledatetime}}</td>
+                <td class="custom_uppercase_text">
+                  <span class="badge badge-success">{{ claim.status}}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

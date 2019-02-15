@@ -1,0 +1,544 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="validations_form" novalidate (ngSubmit)="createClaim()">
+        <div class="card">
+          <div class="card-header">
+            <strong>New Claim Add</strong> Form
+          </div>
+          <div class="card-body">
+            <div class="col-md-12">  
+              <!-- Nav tabs -->
+              <tabset>
+                <tab>
+                  <ng-template tabHeading><i class="icon-pencil"></i>  Basic Info</ng-template>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Insurance Company Name</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Insurance Company Name" formControlName="Insurance_company_name">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Insurance Agent Name</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Insurance Agent Name" formControlName="Insurance_agent_name">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Insured Name</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Insured Name" formControlName="Insured_name">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Insured Id Number</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Insured Id Number" formControlName="Insured_id_number">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Insured Address</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Insured Address" formControlName="Insured_address">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Insured Cellphone</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Insured Cellphone" formControlName="Insured_cellphone">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Car Manufacturer</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Car Manufacturer" formControlName="car_manufacturer">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Car Model</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Car Model" formControlName="car_model">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Car Year</label>
+                    <div class="col-md-9">
+                      <select id="select1" name="select1" class="form-control" formControlName="car_year">
+                        <option value="0">Please Select Year</option>
+                        <option value="1990">1990</option>
+                        <option value="1991">1991</option>
+                        <option value="1992">1992</option>
+                        <option value="1993">1993</option>
+                        <option value="1994">1994</option>
+                        <option value="1995">1995</option>
+                        <option value="1996">1996</option>
+                        <option value="1997">1997</option>
+                        <option value="1998">1998</option>
+                        <option value="1999">1999</option>
+                        <option value="2000">2000</option>
+                        <option value="2001">2001</option>
+                        <option value="2002">2002</option>
+                        <option value="2003">2003</option>
+                        <option value="2004">2004</option>
+                        <option value="2005">2005</option>
+                        <option value="2006">2006</option>
+                        <option value="2007">2007</option>
+                        <option value="2008">2008</option>
+                        <option value="2009">2009</option>
+                        <option value="2010">2010</option>
+                        <option value="2011">2011</option>
+                        <option value="2012">2012</option>
+                        <option value="2013">2013</option>
+                        <option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">License Plate Number</label>
+                    <div class="col-md-9">
+                      <input type="number" id="text-input" name="text-input" class="form-control" placeholder="License Plate Number" formControlName="License_plate_number">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Driver At Event Time</label>
+                    <div class="col-md-9">
+                      <select id="select1" name="select1" class="form-control" formControlName="Driver_at_event_time">
+                        <option value="0">Please Select</option>
+                        <option value="insured">Insured</option>
+                        <option value="other">Other Driver</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Driver Name</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Driver Name" formControlName="Driver_name">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Driver Id Number</label>
+                    <div class="col-md-9">
+                      <input type="number" id="text-input" name="text-input" class="form-control" placeholder="Driver Id Number" formControlName="Driver_id_number">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Driver Gender</label>
+                    <div class="col-md-9">
+                      <select id="select1" name="select1" class="form-control" formControlName="Driver_gender">
+                        <option value="0">Please Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Driver Birthdate</label>
+                    <div class="col-md-9">
+                      <input type="date" id="text-input" name="text-input" class="form-control" placeholder="Driver Birthdate" formControlName="Driver_birthdate">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Driver Cellphone</label>
+                    <div class="col-md-9">
+                      <input type="number" id="text-input" name="text-input" class="form-control" placeholder="Driver Cellphone" formControlName="Driver_cellphone">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Driver Address</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Driver Address" formControlName="Driver_address">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Driver Date Of Issuance Of License</label>
+                    <div class="col-md-9">
+                      <input type="date" id="text-input" name="text-input" class="form-control" placeholder="Driver Date Of Issuance Of License" formControlName="Driver_date_of_issuance_of_license">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Event Date</label>
+                    <div class="col-md-9">
+                      <input type="date" id="text-input" name="text-input" class="form-control" placeholder="Event Date" formControlName="Event_date">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Event Time</label>
+                    <div class="col-md-9">
+                      <input type="time" id="text-input" name="text-input" class="form-control" placeholder="Event Time" formControlName="Event_time">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Event Place</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Event Place" formControlName="Event_place">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Event Description</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Event Description" formControlName="Event_description">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Car Damage Description</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Car Damage Description" formControlName="Car_damage_description">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Car Damage Location</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Care Damage Location" formControlName="Care_damage_location">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Event Occured On</label>
+                    <div class="col-md-9">
+                      <select id="select1" name="select1" class="form-control" formControlName="Event_occured_on">
+                        <option value="work">Work</option>
+                        <option value="private">Private</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Event Fault</label>
+                    <div class="col-md-9">
+                      <select id="select1" name="select1" class="form-control" formControlName="Event_fault">
+                        <option value="me">Me</option>
+                        <option value="third">Third party</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Road Type</label>
+                    <div class="col-md-9">
+                      <select id="select1" name="select1" class="form-control" formControlName="Road_type">
+                        <option value="dirt">dirt</option>
+                        <option value="urban">urban</option>
+                        <option value="parking">parking</option>
+                        <option value="inter-urban">inter-urban</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Number Of Involved Car</label>
+                    <div class="col-md-9">
+                      <select id="select1" name="select1" class="form-control" formControlName="Number_of_involved_car">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Police Involved</label>
+                    <div class="col-md-9">
+                      <select id="select1" name="select1" class="form-control" formControlName="police_involved">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Police Station Name</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Police Station Name" formControlName="police_station_name">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">License Suspension</label>
+                    <div class="col-md-9">
+                      <select id="select1" name="select1" class="form-control" formControlName="License_suspension">
+                        <option value="no">No</option>
+                        <option value="min">Min</option>
+                        <option value="third">Third Party</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Body Injured</label>
+                    <div class="col-md-9">
+                      <select id="select1" name="select1" class="form-control" formControlName="body_injured">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                    </div>
+                  </div>
+                </tab>
+                <tab>
+                  <ng-template tabHeading>
+                    <i class="icon-calculator"></i>  Car Damaged Parts <span class="error">[Required]</span>
+                  </ng-template>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div class="form-group row">
+                        <label class="col-md-7 col-form-label" for="text-input">1. Wind Shield</label>
+                        <div class="col-md-4">
+                          <select id="select1" name="select1" class="form-control" formControlName="wind_shield">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-7 col-form-label" for="text-input">2. Wheels</label>
+                        <div class="col-md-4">
+                          <select id="select1" name="select1" class="form-control" formControlName="wheels">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-7 col-form-label" for="text-input">3. Engine</label>
+                        <div class="col-md-4">
+                          <select id="select1" name="select1" class="form-control" formControlName="engine">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-7 col-form-label" for="text-input">4. Bumpers</label>
+                        <div class="col-md-4">
+                          <select id="select1" name="select1" class="form-control" formControlName="bumpers">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-7 col-form-label" for="text-input">5. Fenders</label>
+                        <div class="col-md-4">
+                          <select id="select1" name="select1" class="form-control" formControlName="fenders">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-7 col-form-label" for="text-input">6. Doors</label>
+                        <div class="col-md-4">
+                          <select id="select1" name="select1" class="form-control" formControlName="doors">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-7 col-form-label" for="text-input">7. Hoods</label>
+                        <div class="col-md-4">
+                          <select id="select1" name="select1" class="form-control" formControlName="hoods">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-7 col-form-label" for="text-input">8. Roofs</label>
+                        <div class="col-md-4">
+                          <select id="select1" name="select1" class="form-control" formControlName="roofs">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-7 col-form-label" for="text-input">9. Trunks & TailGates</label>
+                        <div class="col-md-4">
+                          <select id="select1" name="select1" class="form-control" formControlName="trunks">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-7 col-form-label" for="text-input">10. Head Lights</label>
+                        <div class="col-md-4">
+                          <select id="select1" name="select1" class="form-control" formControlName="head_light">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-7">
+                      <img src="assets/img/brand/car_top.png">
+                    </div>
+                  </div>
+                </tab>
+                <tab>
+                  <ng-template tabHeading><i class="icon-list"></i>  Number of Involved Car</ng-template>
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label" for="text-input" >Check If More Than One Car</label>
+                      <div class="col-md-9">
+                        <input type="checkbox" formControlName="isChecked_cars" (change)="checkValueCars()" />
+                      </div>
+                    </div>
+                    <div *ngIf="isCheckedCars">
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Name</label>
+                        <div class="col-md-9">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Name" formControlName="other_car_name">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">License Plate Number</label>
+                        <div class="col-md-9">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="License Plate Number" formControlName="other_car_license_plate_number">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Address</label>
+                        <div class="col-md-9">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Address" formControlName="other_car_address">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Cellphone</label>
+                        <div class="col-md-9">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Cellphone" formControlName="other_car_cellphone">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Insurance Company Name</label>
+                        <div class="col-md-9">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Insurance Company Name" formControlName="other_car_insurance_company_name">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Car Manufacturer</label>
+                        <div class="col-md-9">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Car Manufacturer" formControlName="other_car_manufacturer">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Car Model</label>
+                        <div class="col-md-9">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Car Model" formControlName="other_car_model">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Car Year</label>
+                        <div class="col-md-9">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Car Year" formControlName="other_car_year">
+                        </div>
+                      </div>
+
+<!--                       <div class="col-md-3 right">
+                        <button type="button" class="btn btn-block btn-success" (click)="addItem()">Add New Car</button>
+                      </div>
+                      <div formArrayName="additional_cars" *ngFor="let item of validations_form.get('additional_cars').controls; let i = index;">
+                        <div [formGroupName]="i">
+                          <div class="card marg-right">
+                            <div class="card-header">
+                              <strong>{{i+1}}. Car Add</strong> Form
+                            </div>
+                            <div class="card-body">
+                              <div class="form-group row">
+                                <label class="col-md-3 col-form-label" for="text-input">Name</label>
+                                <div class="col-md-9">
+                                  <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Name" formControlName="name">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-md-3 col-form-label" for="text-input">License Plate Number</label>
+                                <div class="col-md-9">
+                                  <input type="text" id="text-input" name="text-input" class="form-control" placeholder="License Plate Number" formControlName="license_plate_number">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-md-3 col-form-label" for="text-input">Address</label>
+                                <div class="col-md-9">
+                                  <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Address" formControlName="address">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-md-3 col-form-label" for="text-input">Cellphone</label>
+                                <div class="col-md-9">
+                                  <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Cellphone" formControlName="cellphone">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-md-3 col-form-label" for="text-input">Insurance Company Name</label>
+                                <div class="col-md-9">
+                                  <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Insurance Company Name" formControlName="insurance_company_name">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-md-3 col-form-label" for="text-input">Car Manufacturer</label>
+                                <div class="col-md-9">
+                                  <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Car Manufacturer" formControlName="car_manufacturer">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-md-3 col-form-label" for="text-input">Car Model</label>
+                                <div class="col-md-9">
+                                  <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Car Model" formControlName="car_model">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-md-3 col-form-label" for="text-input">Car Year</label>
+                                <div class="col-md-9">
+                                  <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Car Year" formControlName="car_year">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div> -->
+                        <!-- Chosen name: {{ validations_form.controls.items.controls[i].controls.name.value }} -->
+                      <!-- </div> -->
+                    </div>
+                </tab>
+                <tab>
+                  <ng-template tabHeading><i class="icon-user-follow"></i>  Body Injured</ng-template>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label" for="text-input" >Check If Body Injured</label>
+                          <div class="col-md-9">
+                            <input type="checkbox" formControlName="isChecked_body" (change)="checkValueBody()" />
+                          </div>
+                        </div>
+                        <div *ngIf="isCheckedBody">
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="text-input">Injured Person Name</label>
+                            <div class="col-md-9">
+                              <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Injured Person Name" formControlName="injured_name">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="text-input">Injured Person Address</label>
+                            <div class="col-md-9">
+                              <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Injured Person Address" formControlName="injured_address">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="text-input">Injured Person Phone Number</label>
+                            <div class="col-md-9">
+                              <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Injured Person Phone Number" formControlName="injured_phone_number">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </tab>
+              </tabset>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="badge badge-success" *ngIf="response_status!=true">{{response}}</span>
+            <button type="submit" class="btn btn-primary pull-right" [disabled]="!validations_form.valid"><i class="fa fa-dot-circle-o"></i>Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

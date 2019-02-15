@@ -1,0 +1,620 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center admin_create_claim">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-10 col-lg-10 mx-auto" dir="rtl">
+            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                <mat-step [stepControl]="validations_form">
+                  <form [formGroup]="validations_form">
+                    <ng-template matStepLabel>Basic Info <i class="fa fa-pencil" aria-hidden="true"></i></ng-template>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ICN" class="my_label_marg_tab_form">Insurance Company Name</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select class="form-control" formControlName="Ins_coy_id" [ngClass]="{ 'is-invalid': submitted && f.Ins_coy_id.errors }">
+                            <option value="">Select Insurance Company</option>
+                            <option *ngFor="let company of companylist" [value]="company.id">{{company.name}}</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="IAN" class="my_label_marg_tab_form">Insurance Agent Name</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="IAN" placeholder=" Insurance Agent Name"
+                            formControlName="Insurance_agent_name" [ngClass]="{ 'is-invalid': submitted && f.Insurance_agent_name.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Insured Name</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="InN" placeholder=" Insured Name" formControlName="Insured_name"
+                            [ngClass]="{ 'is-invalid': submitted && f.Insured_name.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Insured Id Number</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="number" min="0" class="form-control" id="InN" placeholder=" Insured Id Number"
+                            formControlName="Insured_id_number" [ngClass]="{ 'is-invalid': submitted && f.Insured_id_number.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Insured Address</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="InN" placeholder=" Insured Address" formControlName="Insured_address"
+                            [ngClass]="{ 'is-invalid': submitted && f.Insured_address.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Insured Cellphone</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="InN" placeholder=" Insured Cellphone"
+                            formControlName="Insured_cellphone" [ngClass]="{ 'is-invalid': submitted && f.Insured_cellphone.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Car Manufacturer</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select class="form-control" formControlName="car_manufacturer_id" (change)="OnChangeManfacturer($event)"
+                            [ngClass]="{ 'is-invalid': submitted && f.car_manufacturer_id.errors }">
+                            <option value="">Select Manufacturer</option>
+                            <option *ngFor="let manufacturer of manfacturerlist" [value]="manufacturer.id">{{manufacturer.name}}</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Car Model</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select class="form-control" formControlName="car_model_id" [ngClass]="{ 'is-invalid': submitted && f.car_model_id.errors }">
+                            <option value="">Select Model</option>
+                            <option *ngFor="let model of modellist" [value]="model.id">{{model.name}}</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="CY" class="my_label_marg_tab_form">Car Year</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select class="form-control" id="CY" formControlName="car_year" [ngClass]="{ 'is-invalid': submitted && f.car_year.errors }">
+                            <option value="">Select Year</option>
+                            <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">License Plate Number</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="number" class="form-control" min="0" id="InN" placeholder=" License Plate Number"
+                            formControlName="License_plate_number" [ngClass]="{ 'is-invalid': submitted && f.License_plate_number.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Driver At Event Time</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select id="select2" class="form-control" formControlName="Driver_at_event_time" [ngClass]="{ 'is-invalid': submitted && f.Driver_at_event_time.errors }">
+                            <option value="">Select Option</option>
+                            <option value="0">Insured</option>
+                            <option value="1">Other Driver</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Driver Name</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="InN" placeholder=" Driver Name" formControlName="Driver_name"
+                            [ngClass]="{ 'is-invalid': submitted && f.Driver_name.errors }">
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Driver Id Number</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="number" min="0" class="form-control" id="InN" placeholder=" Driver Id Number"
+                            formControlName="Driver_id_number" [ngClass]="{ 'is-invalid': submitted && f.Driver_id_number.errors }">
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Driver Gender</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select id="select3" class="form-control" formControlName="Driver_gender" [ngClass]="{ 'is-invalid': submitted && f.Driver_gender.errors }">
+                            <option value="">Select Gender</option>
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Driver Birthdate</label>
+                        </div>
+                        <div class="col-md-8">
+                          <angular2-date-picker formControlName="Driver_birthdate" [settings]="settings"></angular2-date-picker>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="DBD" class="my_label_marg_tab_form">Driver Cellphone</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="number" min="0" name="text-input" class="form-control" placeholder="Driver Cellphone"
+                            formControlName="Driver_cellphone" [ngClass]="{ 'is-invalid': submitted && f.Driver_cellphone.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="DBD" class="my_label_marg_tab_form">Driver Address</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder=" Driver Address"
+                            formControlName="Driver_address" [ngClass]="{ 'is-invalid': submitted && f.Driver_address.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="DBD" class="my_label_marg_tab_form">Driver Date Of Issuance Of License</label>
+                        </div>
+                        <div class="col-md-8">
+  
+                          <angular2-date-picker formControlName="Driver_date_of_issuance_of_license" [settings]="settings"></angular2-date-picker>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="DBD" class="my_label_marg_tab_form">Event Date</label>
+                        </div>
+                        <div class="col-md-8">
+                          <angular2-date-picker formControlName="Event_date" [settings]="settings"></angular2-date-picker>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">Event Time</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input atp-time-picker class="form-control" placeholder="Event occurance time" formControlName="Event_time"
+                            [ngClass]="{ 'is-invalid': submitted && f.Event_time.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">Event Place</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Event Place"
+                            formControlName="Event_place" [ngClass]="{ 'is-invalid': submitted && f.Event_place.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">Event Description</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Event Description"
+                            formControlName="Event_description" [ngClass]="{ 'is-invalid': submitted && f.Event_description.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">Car Damage Description</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Car Damage Description"
+                            formControlName="Car_damage_description" [ngClass]="{ 'is-invalid': submitted && f.Car_damage_description.errors }">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">Event Occured On</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select id="select4" class="form-control" formControlName="Event_occured_on" [ngClass]="{ 'is-invalid': submitted && f.Event_occured_on.errors }">
+                            <option value="">Select Option</option>
+                            <option value="0">Work</option>
+                            <option value="1">Private</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">Event Fault</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select id="select5" class="form-control" formControlName="Event_fault" [ngClass]="{ 'is-invalid': submitted && f.Event_fault.errors }">
+                            <option value="">Select Option</option>
+                            <option value="0">Me</option>
+                            <option value="1">Third party</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">Road Type</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select id="select6" class="form-control" formControlName="Road_type" [ngClass]="{ 'is-invalid': submitted && f.Road_type.errors }">
+                            <option value="">Select Option</option>
+                            <option value="0">dirt</option>
+                            <option value="1">urban</option>
+                            <option value="2">parking</option>
+                            <option value="3">inter-urban</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">Number Of Involved Car</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select id="select7" class="form-control" formControlName="Number_of_involved_car" [ngClass]="{ 'is-invalid': submitted && f.Number_of_involved_car.errors }"
+                            (change)="changeevent($event)">
+                            <option value="">Select Option</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">Police Involved</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select id="select8" class="form-control" formControlName="police_involved" (change)="OnchangePoliceInvolved($event)"
+                            [ngClass]="{ 'is-invalid': submitted && f.police_involved.errors }">
+                            <option value="">Select Option</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group" *ngIf="IsPolceInvolved==1">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">Police Station Name</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Police Station Name"
+                            formControlName="police_station_name">
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">License Suspension</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select id="select9" class="form-control" formControlName="License_suspension" [ngClass]="{ 'is-invalid': submitted && f.License_suspension.errors }">
+                            <option value="">Select Option</option>
+                            <option value="0">No</option>
+                            <option value="1">Min</option>
+                            <option value="2">Third Party</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ET" class="my_label_marg_tab_form">Body Injured</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select id="selecta1" class="form-control" formControlName="body_injured" [ngClass]="{ 'is-invalid': submitted && f.body_injured.errors }"
+                            (change)="changeevent2($event)">
+                            <option value="">Select Option</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+                    <div>
+                      <button mat-button class="btn btn-info pull-right" (click)="nextstep(stepper)" *ngIf="Isfinished1==1 || Isfinished2==1">Next</button>
+                      <button mat-button class="btn btn-success pull-right" (click)="createclaim(stepper)" *ngIf="Isfinished1!=1 && Isfinished2!=1">Submit</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup" [optional]="isOptionalSecond">
+                  <form [formGroup]="secondFormGroup">
+                    <ng-template matStepLabel>ThirdParty details <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </ng-template>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="N" class="my_label_marg_tab_form">Name</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="N" placeholder=" Name" formControlName="other_car_name">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="LPN" class="my_label_marg_tab_form">License Plate Number</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="LPN" placeholder=" License Plate Number"
+                            formControlName="other_car_license_plate_number">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="A" class="my_label_marg_tab_form">Address</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" formControlName="other_car_address" placeholder="Address">
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="C" class="my_label_marg_tab_form">Cellphone</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="C" placeholder=" Cellphone" formControlName="other_car_cellphone">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="ICN_tab3" class="my_label_marg_tab_form">Insurance Company Name</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select class="form-control" formControlName="other_car_insurance_company_name" [ngClass]="{ 'is-invalid': submitted && f.Ins_coy_id.errors }">
+                            <option value="">Select Insurance Company</option>
+                            <option *ngFor="let company of companylist" [value]="company.name">{{company.name}}</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Car Manufacturer</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select class="form-control" formControlName="other_car_manufacturer" (change)="OnChangeManfacturer($event)"
+                            [ngClass]="{ 'is-invalid': submitted && f2.other_car_manufacturer.errors }">
+                            <option value="">Select Manufacturer</option>
+                            <option *ngFor="let manufacturer of manfacturerlist" [value]="manufacturer.name">{{manufacturer.name}}</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="InN" class="my_label_marg_tab_form">Car Model</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select class="form-control" formControlName="other_car_model" [ngClass]="{ 'is-invalid': submitted && f2.other_car_model.errors }">
+                            <option value="">Select Model</option>
+                            <option *ngFor="let model of modellist" [value]="model.name">{{model.name}}</option>
+                          </select>
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="CY" class="my_label_marg_tab_form">Car Year</label>
+                        </div>
+                        <div class="col-md-8">
+                          <select class="form-control" id="CY" formControlName="other_car_year" [ngClass]="{ 'is-invalid': submitted && f2.other_car_year.errors }">
+                            <option value="">Select Year</option>
+                            <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div>
+                      <button mat-button matStepperPrevious class="btn btn-primary pull-left">Back</button>
+                      <button mat-button matStepperNext class="btn btn-info pull-right" *ngIf="Isfinished1==1 && Isfinished2==1">Next</button>
+                      <button mat-button class="btn btn-success pull-right" (click)="createclaim(stepper)" *ngIf="Isfinished1==1 && Isfinished2!=1">Submit</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="thirdFormGroup" [optional]="isOptionalThird">
+                  <form [formGroup]="thirdFormGroup">
+                    <ng-template matStepLabel>Injuries Details <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </ng-template>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="IPN" class="my_label_marg_tab_form">Injured Person Name</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="IPN" placeholder="Injured Person Name"
+                            formControlName="injured_name">
+                        </div>
+  
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="IPA" class="my_label_marg_tab_form">Injured Person Address</label>
+                        </div>
+                        <div class="col-md-8">
+                          <textarea class="form-control" rows="2" id="IPA" name="text" formControlName="injured_address"></textarea>
+                        </div>
+  
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label for="IPPN" class="my_label_marg_tab_form">Injured Person Phone Number</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="IPPN" placeholder=" Injured Person Phone Number"
+                            formControlName="injured_phone_number">
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <button mat-button matStepperPrevious class="btn btn-primary pull-left">Back</button>
+                      <button mat-button class="btn btn-success pull-right" (click)="createclaim(stepper)">Submit</button>
+                    </div>
+                  </form>
+                </mat-step>
+              </mat-horizontal-stepper>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,582 @@
+<div class="app-body">
+  <main class="main_home d-flex align-items-center main_get_claim">
+    <div class="container-fluid">
+      <div class="row d-block">
+        <section id="top">
+          <div class="container-fluid">
+            <div class="top_middle">
+              <a href="#"><img src="assets/images/new_logo.png" alt="logo" class="top_logo mx-auto d-block"></a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top for_mobile" dir="ltr">
+          <div class="container-fluid">
+            <a class="navbar-brand" [routerLink]="['/']">CLAIMOBILE</a>
+            <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+              aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarResponsive">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <!-- home -->
+                  <a class="nav-link" [routerLink]="['/home']" [scrollTo]="'#home'" [scrollDuration]="1000"
+                    [scrollOffset]="-100"><span>בית</span></a>
+                </li>
+                <li class="nav-item" *ngIf="isLogin!=true">
+                  <!-- login -->
+                  <a class="nav-link" [routerLink]="['/login']"><span>התחברות</span></a>
+                </li>
+                <li class="nav-item" *ngIf="isLogin!=false">
+                  <a class="nav-link" [routerLink]="['/dashboard']"><span>מרכז השליטה</span></a>
+                </li>
+                <li class="nav-item" *ngIf="isLogin!=false">
+                  <a class="nav-link" (click)="logout()"><span>להתנתק</span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark for_desktop">
+          <div class="container-fluid">
+              <a class="navbar-brand" [routerLink]="['/']">CLAIMOBILE</a>
+            <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+              aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarResponsive">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <!-- home -->
+                  <a class="nav-link" [routerLink]="['/home']" [scrollTo]="'#home'" [scrollDuration]="1000"
+                    [scrollOffset]="-100"><span>בית</span></a>
+                </li>
+                <li class="nav-item" *ngIf="isLogin!=true">
+                  <!-- login -->
+                  <a class="nav-link" [routerLink]="['/login']"><span>התחברות</span></a>
+                </li>
+                <li class="nav-item" *ngIf="isLogin!=false">
+                  <a class="nav-link" [routerLink]="['/dashboard']"><span>מרכז השליטה</span></a>
+                </li>
+                <li class="nav-item" *ngIf="isLogin!=false">
+                  <a class="nav-link" (click)="logout()"><span>להתנתק</span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <section id="new_claim_box">
+
+          <!-- assessor part1 modal -->
+          <div class="modal fade" bsModal #firstmodal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-events-name"
+            (onShow)="handler('onShow', $event)" (onShown)="handler('onShown', $event)" (onHide)="handler('onHide', $event)"
+            (onHidden)="handler('onHidden', $event)">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-body text-center">
+                  <p>When you want to see assessor?</p>
+                  <br>
+                  <div class="d-flex flex-row-reverse">
+                    <button type="button" class="btn btn-success" (click)="now(assessortemplate)">Now</button>
+                    <button type="button" class="btn btn-danger ml-2" (click)="later(assessortemplate)">Later</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- assessor part1 modal closed -->
+
+          <ng-template #srta_template>
+            <div class="modal-header">
+              <div><i class="fa fa-check-circle-o fa-3x" aria-hidden="true"></i></div>
+            </div>
+            <div class="modal-body">
+              <div *ngIf="request_status==false">
+                <h2 style="color:green">Great!</h2>
+                <p style="color:green">{{requestresponse}}</p>
+              </div>
+              <div *ngIf="request_status==true">
+                <h2 style="color:darkred">Oops!</h2>
+                <p style="color:darkred">{{requestresponse}}</p>
+              </div>
+              <div class="modal-footer d-flex flex-row-reverse">
+                <button type="button" class="btn btn-danger" (click)="srtamodalRef.hide()">Close</button>
+              </div>
+            </div>
+          </ng-template>
+          <div class="container">
+            <h1 class="heading">Existing Claim Details</h1>
+            <form [formGroup]="claim_form" novalidate (ngSubmit)="get_claim()">
+              <div class="row">
+                <div class="col-md-9">
+                  <input type="text" class="form-control" id="findclaimtext" #claimid placeholder="Enter Claim Unique Number"
+                    formControlName="claim_unique_id">
+                </div>
+                <div class="col-md-3">
+                  <button class="btn btn-default" type="submit" id="findclaimbtn"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+
+            <ng-template #assessorrating_template>
+                <form [formGroup]="assessorratingform" novalidate (ngSubmit)="save_rating()">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Assessor Feedback Box</h4>
+                      <p class="modal-subtitle">Assessor Name: {{assessor_name}}</p>
+                      <button type="button" class="close" id="feedclosebtn" (click)="assessorratingRef.hide()"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div *ngIf="ratingresponse!=''">
+                        <div [ngClass]="(ratingFlag==false)?'alert alert-success':'alert alert-danger'">{{ratingresponse}}</div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-9">
+                          <textarea rows="3" class="form-control" placeholder="Message type here" formControlName="message"></textarea>
+                        </div>
+                        <label class="col-md-3 col-form-label" for="textarea-input">Message</label>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-9 custom_star_rate">
+                          <star-rating [starType]="'svg'" [rating]="0" size="large" (ratingChange)="onRatingChange($event)"></star-rating>
+                        </div>
+                        <label class="col-md-3 col-form-label" for="rating-input">Rating</label>
+                      </div>
+                    </div>
+                    <div class="modal-footer" dir="rtl">
+                      <button type="submit" class="btn btn-info" [disabled]="assessorratingform.invalid">Save</button>
+                    </div>
+                  </form>
+              </ng-template>
+
+              <ng-template #garagerating_template>
+                  <div id="rating_content_box" *ngIf="claimdata">
+                      <form [formGroup]="garageratingform" novalidate (ngSubmit)="save_garage_rating()">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Garage Feedback Box</h4>
+                          <p class="modal-subtitle">Garage: {{garage_name}}</p>
+                          <button type="button" class="close" id="garagefeedclose" (click)="garageratingRef.hide()"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div *ngIf="garage_ratingresponse!=''">
+                            <div [ngClass]="(garage_ratingFlag==false)?'alert alert-success':'alert alert-danger'">{{garage_ratingresponse}}</div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="col-md-9">
+                              <textarea rows="3" class="form-control" placeholder="Message type here" formControlName="message"></textarea>
+                            </div>
+                            <label class="col-md-3 col-form-label" for="textarea-input">Message</label>
+                          </div>
+                          <div class="form-group row">
+                            <div class="col-md-9 custom_star_rate">
+                              <star-rating [starType]="'svg'" [rating]="0" size="large" (ratingChange)="onRatingChange($event)"></star-rating>
+                            </div>
+                            <label class="col-md-3 col-form-label" for="rating-input">Rating</label>
+                          </div>
+                        </div>
+                        <div class="modal-footer" dir="rtl" *ngIf="claimdata.status=='job-completed'">
+                          <button type="submit" class="btn btn-info" [disabled]="garageratingform.invalid">Save</button>
+                        </div>
+                      </form>
+                    </div>
+              </ng-template>
+         
+
+            <div bsModal #ConfirmationModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-info modal-lg" role="document">
+                <div class="modal-content my_custm_modal-content" *ngIf="claimdata">
+                  <div class="modal-header my_custm_modal_header">
+                    <h4 class="modal-title my_custm_modal_titile">JOB CONFIRMATION</h4>
+                    <button type="button" class="close" id="jbclosebtn" (click)="ConfirmationModal.hide()" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body my_custom_modal">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="alert alert-success">
+                          <p>Claim Unique Id:{{claimdata.claim_unq_id}}</p>
+                          <p><i class="fa fa-inbox" aria-hidden="true"></i> Garage has confirmed that your job has been
+                            done. Please confirm ,If job done as per requirement?</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div [ngClass]="footerclass" dir="rtl">
+                    <div *ngIf="confirmation_msg!=''">
+                      <div [ngClass]="(confirmation_status==false)?'alert alert-success':'alert alert-danger'">{{confirmation_msg}}</div>
+                    </div>
+                    <button type="button" class="btn btn-success" *ngIf="claimdata.status=='job-done-by-garage'"
+                      (click)="confirm_now($event)"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> JOB COMPLETED</button>
+                    <button type="button" class="btn btn-danger" *ngIf="claimdata.status=='job-done-by-garage'" (click)="unconfirm_now($event)"><i
+                        class="fa fa-thumbs-o-down" aria-hidden="true"></i> JOB PENDING</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <div bsModal #GarageModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-info modal-sm" role="document">
+                <div class="modal-content my_custm_modal-content">
+                  <div class="modal-header my_custm_modal_header">
+                    <h4 class="modal-title my_custm_modal_titile">Location for Garage Service</h4>
+                    <button type="button" class="close" id="grgclosebtn" (click)="GarageModal.hide()" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form [formGroup]="garage_form" (ngSubmit)="sendOfferToAll(claimid.value)">
+                    <div class="modal-body my_custom_modal">
+                      <div class="form-group row">
+                        <div class="col-md-9">
+                          <input type="text" formControlName="address" ngx-google-places-autocomplete class="form-control"
+                            #placesRef="ngx-places" [options]="options" #address (onAddressChange)="onAddressChange($event)" />
+                        </div>
+                        <label class="col-md-3 col-form-label" for="hf-email">Location</label>
+                      </div>
+                      <div class="form-group row">
+                          <div class="col-md-12">
+                              <p><i class="fa fa-info-circle" aria-hidden="true"></i>Note:Location is required!!</p>
+                          </div>
+                      </div>
+             
+                    </div>
+                    <div [ngClass]="footerclass" dir="rtl">
+ 
+                      <button type="submit" class="btn btn-success" [disabled]="currentlat==''"><i
+                          class="fa fa-paper-plane" aria-hidden="true"></i> Send Offers</button>
+                          <!-- <div *ngIf="response!=''">
+                              <div [ngClass]="(response_status==false)?'alert-danger mr-2':'alert-success mr-2'">{{response}}</div>
+                            </div> -->
+                    </div>
+                  </form>
+
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <div bsModal #GarageOffersModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-info modal-lg" role="document">
+                <div class="modal-content my_custm_modal-content">
+                  <div class="modal-header my_custm_modal_header">
+                    <h4 class="modal-title my_custm_modal_titile">Garage Proposal listing</h4>
+                    <button type="button" class="close" (click)="GarageOffersModal.hide()" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body my_custom_modal">
+                    <div *ngIf="garageOffers_response!=''">
+                      <div [ngClass]="(garageOffers_status==false)?'alert alert-success':'alert alert-info'">{{garageOffers_response}}</div>
+                    </div>
+                    <div class="table-responsive" *ngIf="garageOffers.length!=0">
+                      <ul class="list-group my_list">
+                        <li class="list-group-item" *ngFor="let garageOffer of garageOffers | paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                          <div class="card_content col-sm-6">
+                            <p>{{garageOffer.garage_info.Name}} <span>:Garage</span></p>
+                            <p>{{garageOffer.garage_info.Contact_name}}<span>:Contact Name</span></p>
+                            <p>{{garageOffer.garage_info.email}} <span>:Email</span></p>
+                          </div>
+                          <div class="card_content col-sm-6">
+                            <p>${{garageOffer.parts_amount}}<span>:Parts Amount</span></p>
+                            <p>${{garageOffer.garage_charge}}<span>:Garage service charge</span></p>
+                            <p class="custom_garage_service">
+                              <span *ngFor="let service of garageOffer.additional_service" class="badge badge-info">{{service}}</span>
+                              <span>:Additional Services</span>
+                            </p>
+                            <p><span [ngClass]="(garageOffer.garage_info.authorized_importer==1)?'badge badge-success textsize_md':'badge badge-danger textsize_md'">{{garageOffer.garage_info.isauthorizedImporter}}</span><span>:Authorized
+                                Importer</span></p>
+                            <p class="custom_cashback"> ${{garageOffer.cashback}}<span>:Cashback</span></p>
+                          </div>
+                          <div class="col-sm-12 my_garage_proposal_list">
+                            <p><button class="btn btn-success" (click)="accept_offer(i,garageOffer.id)"><i class="fa fa-paper-plane my_sent"
+                                  aria-hidden="true"></i>Accept</button>
+                              <button class="btn btn-danger" (click)="declined_offer(i,garageOffer.id)"><i class="fa fa-ban"
+                                  aria-hidden="true"></i>Decline</button>
+                            </p>
+                          </div>
+                        </li>
+                      </ul>
+                      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <ng-template #assessortemplate>
+
+              <div class="modal-header my_custm_modal_header">
+                <h4 class="modal-title my_custm_modal_titile">Location for Assessor Service</h4>
+                <button type="button" class="close" (click)="assessormodalRef.hide()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form [formGroup]="accessor_form" (ngSubmit)="get_assessor()">
+                <div class="modal-body my_custom_modal">
+                  <div class="form-group row">
+                    <div class="col-md-9">
+                      <input type="text" formControlName="address" ngx-google-places-autocomplete class="form-control"
+                        #placesRef="ngx-places" [options]="options" #addressinput (onAddressChange)="onAddressChange($event)" />
+                    </div>
+                    <label class="col-md-3 col-form-label" for="hf-location">Location</label>
+                  </div>
+                  <div class="form-group row" *ngIf="schedulenow==false">
+                    <div class="col-md-9">
+                      <angular2-date-picker formControlName="scheduledatetime" [settings]="settings" (onDateSelect)="onDateSelect($event)"></angular2-date-picker>
+                    </div>
+                    <label class="col-md-3 col-form-label" for="hf-scheduletime" id="accessor_sdt">Schedule date time</label>
+                  </div>
+                </div>
+                <div [ngClass]="footerclass" dir="rtl">
+                  <button type="submit" class="btn btn-info" [disabled]="currentlat==''" *ngIf="btn_status==true"><i class="fa fa-search"
+                      aria-hidden="true"></i> Find
+                    Assessors</button>
+                  <!-- <div *ngIf="response!=''">
+                    <div [ngClass]="(response_status==false)?'alert-success':'alert-danger'">{{response}}</div>
+                  </div> -->
+                </div>
+              </form>
+              <div class="container" *ngIf="assessorList.length!=0">
+                <h2 class="my_modal_assessor_list">Assessor List</h2>
+                <div>
+                  <div class="form-group row">
+                    <div class="col-md-3 offset-md-9">
+                      <button class="btn btn-success" type="button" (click)="sendrequesttoall(claimid.value,$event,srta_template)"><i
+                          class="fa fa-paper-plane my_sent" aria-hidden="true"></i> Send Request to all</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <ul class="list-group my_list">
+                    <li class="list-group-item" *ngFor="let assessor of assessorList | paginate: { itemsPerPage: 10, currentPage: p }; index as i;">
+                      <div class="card_head">
+                        <img src="{{assessor.image}}" alt="Avatar" style="width:100%">
+                        <div class="card_container">
+                          <p class="my_modal_name">{{assessor.Firstname}} {{assessor.Lastname}} <label class="badge badge-success">{{assessor.avg_rating}}
+                              <i class="fa fa-star" aria-hidden="true"></i></label></p>
+                          <p class="my_modal_date">registered on :{{assessor.created_at}}</p>
+                        </div>
+                      </div>
+                      <div class="card_content">
+                        <p>{{assessor.Insurance_company.name}}<span>:Company</span></p>
+                        <p>{{assessor.email}} <span>:Email</span></p>
+                        <div *ngIf="claimresponse!=''">
+                          <div [ngClass]="(claimresponse_status==false)?'alert alert-success':'alert alert-danger'">{{claimresponse}}</div>
+                        </div>
+                        <p>{{assessor.distance_from_loc}} miles<span>:Distance From Location</span></p>
+                        <p><button class="btn btn-success" (click)="send_request(claimid.value,assessor.user_id,srta_template)"><i
+                              class="fa fa-paper-plane my_sent" aria-hidden="true"></i>Request</button></p>
+                      </div>
+                    </li>
+                  </ul>
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+              </div>
+            </ng-template>
+
+          </div>
+        </section>
+        <section id="claimcontent">
+          <div class="container-fluid">
+            <div *ngIf="claimresponse!=''">
+              <div [ngClass]="(claimresponse_status==false)?'alert alert-success':'alert alert-danger'">{{claimresponse}}</div>
+            </div>
+            <!-- claim_response_start -->
+            <ul class="list-group claimcontent" *ngIf="claimdata">
+              <li class="list-group-item active my_first_li">
+                <p class="my_list_active">{{ claimdata.claim_unq_id}} :Claim Unique ID<button class="btn btn-success custom_uppercase_text">{{
+                    claimdata.status}}</button>
+                  <button type="button" *ngIf="claimdata.status=='approved'" class="btn btn-info" id="{{claimdata.status}}_btn"
+                    data-toggle="modal" (click)="open_assessor_rating_box(assessorrating_template)"><i class="fa fa-commenting-o" aria-hidden="true"></i>
+                    Rate Assessor
+                  </button>
+
+                  <button type="button" *ngIf="claimdata.status=='pending'" class="btn btn-info" id="{{claimdata.status}}_btn"
+                    data-toggle="modal" (click)="firstmodal.show()"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                    Find Assessors
+                  </button>
+
+                  <button type="button" *ngIf="claimdata.status=='assessor-rated'" class="btn btn-info" id="{{claimdata.status}}_btn"
+                    data-toggle="modal" (click)="GarageModal.show()"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                    Find Garage</button>
+
+                  <button type="button" *ngIf="claimdata.status=='offer-processing'" class="btn btn-info" data-toggle="modal"
+                    (click)="GarageOffersModal.show()"><i class="fa fa-gift" aria-hidden="true"></i> Garage Offers
+                    <span class="badge badge-light badge-pill" style="position: static;">{{claimdata.num_ofgarage_offered}}</span></button>
+
+                  <button type="button" *ngIf="claimdata.status=='job-done-by-garage'" class="btn btn-info" data-toggle="modal"
+                    (click)="ConfirmationModal.show()"><i class="fa fa-question-circle" aria-hidden="true"></i>Confirm
+                    job done</button>
+
+                  <button type="button" *ngIf="claimdata.status=='job-completed'" class="btn btn-info" data-toggle="modal"
+                    (click)="open_garage_rating(garagerating_template)"><i class="fa fa-commenting-o" aria-hidden="true"></i> Rate
+                    Garage </button>
+                </p>
+                <p *ngIf="claimdata.status=='active'"><i class="fa fa-info-circle" aria-hidden="true"></i>Note:Assessor
+                  is making assement report,Please stay tuned!!</p>
+                <p *ngIf="claimdata.status=='offer-accepted'"><i class="fa fa-info-circle" aria-hidden="true"></i>Note:Your
+                  request transferred to garage and garage will contact you shortly.!!</p>
+                <p *ngIf="claimdata.status=='job-pending'"><i class="fa fa-info-circle" aria-hidden="true"></i>Note:Garage
+                  working on your vehicle!!</p>
+
+                <div class="row my_get_claim_stars" *ngIf="claimdata.status=='garage-rated'">
+                  <div class="col-md-10 custom_star_rate">
+                    <star-rating [starType]="'svg'" [rating]="claimdata.assessor_review.rating" size="medium"></star-rating>
+                  </div>
+                  <label class="col-md-2 col-form-label" for="rating-input">Assessor rating</label>
+                  <div class="col-md-10 custom_star_rate">
+                    <star-rating [starType]="'svg'" [rating]="claimdata.garage_review.rating" size="medium"></star-rating>
+                  </div>
+                  <label class="col-md-2 col-form-label" for="rating-input">Garage rating</label>
+                </div>
+              </li>
+              <mat-tab-group dir="rtl">
+                <mat-tab label="Basic Information">
+                  <ul class="list-group">
+                    <li class="list-group-item">{{ claimdata.Insurance_company_name}} <span>:Insurance Company Name</span></li>
+                    <li class="list-group-item">{{ claimdata.Insurance_agent_name}}<span>:Insurance Agent Name</span></li>
+                    <li class="list-group-item">{{ claimdata.Insured_name}} <span>:Insured_name</span></li>
+                    <li class="list-group-item">{{ claimdata.Insured_id_number}}<span>: Insured_id_number</span></li>
+                    <li class="list-group-item">{{ claimdata.Insured_address}}<span>: Insured_address</span></li>
+                    <li class="list-group-item">{{ claimdata.Insured_cellphone}}<span>:Insured_cellphone</span></li>
+                    <li class="list-group-item claim_subhead">
+                      <strong>Car Information</strong>
+                      <ul class="list-group">
+                        <li class="list-group-item">{{ claimdata.car_manufacturer}}<span>: Manufecturer</span></li>
+                        <li class="list-group-item">{{ claimdata.car_model}}<span>:Model</span></li>
+                        <li class="list-group-item">{{ claimdata.car_year}}<span>: Year</span></li>
+                        <li class="list-group-item">{{ claimdata.Car_damage_description}}<span>:Damage Description</span></li>
+                      </ul>
+                    </li>
+                    <li class="list-group-item">{{ claimdata.License_plate_number}}<span>:License_plate_number</span></li>
+                    <li class="list-group-item">{{ claimdata.Driver_at_event_time}}<span>:Driver at a event time</span></li>
+                    <li class="list-group-item claim_subhead">
+                      <strong>Driver Information</strong>
+                      <ul class="list-group">
+                        <li class="list-group-item">{{ claimdata.Driver_name}}<span>:Name</span></li>
+                        <li class="list-group-item">{{ claimdata.Driver_id_number}}<span>: Driver_id_number</span></li>
+                        <li class="list-group-item">{{ claimdata.Driver_gender}}<span>: Gender</span></li>
+                        <li class="list-group-item">{{ claimdata.Driver_birthdate}}<span>:Date of Birth</span></li>
+                        <li class="list-group-item">{{ claimdata.Driver_cellphone}}<span>:Cellphone</span></li>
+                        <li class="list-group-item">{{ claimdata.Driver_address}}<span>:Address</span></li>
+                        <li class="list-group-item">{{claimdata.Driver_date_of_issuance_of_license}}<span>:Date of
+                            issuance of license</span></li>
+                      </ul>
+                    </li>
+                    <li class="list-group-item claim_subhead">
+                      <strong>Event Information</strong>
+                      <ul class="list-group">
+                        <li class="list-group-item">{{ claimdata.Event_date}}<span>:Date</span></li>
+                        <li class="list-group-item">{{ claimdata.Event_time}}<span>:Time</span></li>
+                        <li class="list-group-item">{{ claimdata.Event_place}}<span>:Place</span></li>
+                        <li class="list-group-item">{{ claimdata.Event_description}}<span>: Description</span></li>
+                        <li class="list-group-item">{{ claimdata.Event_occured_on}}<span>:Event occured on</span></li>
+                        <li class="list-group-item">{{ claimdata.Event_fault}}<span>:Event fault</span></li>
+                      </ul>
+                    </li>
+                    <li class="list-group-item">{{ claimdata.Road_type}}<span>: Road Type</span></li>
+                    <li class="list-group-item">{{ claimdata.police_involved}}<span>:Police Involved</span></li>
+                    <li class="list-group-item claim_subhead" *ngIf="claimdata.police_involved==1">
+                      <strong>Police involvement Information</strong>
+                      <ul class="list-group">
+                        <li class="list-group-item">{{ claimdata.police_station_name}}<span>:police_station_name</span></li>
+                        <li class="list-group-item">{{ claimdata.License_suspension}}<span>:License_suspension</span></li>
+                      </ul>
+                    </li>
+                    <li class="list-group-item">{{ claimdata.Number_of_involved_car}}<span>:Number of Involved car</span></li>
+                  </ul>
+                </mat-tab>
+                <mat-tab label="Thirdparty Information">
+                  <ul class="list-group">
+                    <li class="list-group-item claim_subhead" *ngIf="claimdata.Number_of_involved_car>1">
+                      <strong>Third Parties details</strong>
+                      <ul class="list-group" *ngFor="let thirdparty of claimdata.Thirparties; index as i;">
+                        <li class="list-group-item">{{ thirdparty.name}}<span>:Name</span></li>
+                        <li class="list-group-item">{{ thirdparty.insurance_company_name}}<span>:Insurance Company Name</span></li>
+                        <li class="list-group-item">{{ thirdparty.license_plate_number}}<span>:license plate Number</span></li>
+                        <li class="list-group-item">{{ thirdparty.address}}<span>:Address</span></li>
+                        <li class="list-group-item">{{ thirdparty.cellphone}}<span>:Cellphone</span></li>
+                        <li class="list-group-item claim_subhead">
+                          <strong>Car Information</strong>
+                          <ul class="list-group">
+                            <li class="list-group-item">{{ thirdparty.car_manufacturer}}<span>:Manufecturer</span></li>
+                            <li class="list-group-item">{{ thirdparty.car_model}}<span>:Model</span></li>
+                            <li class="list-group-item">{{ thirdparty.car_year}}<span>:Year</span></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <p>No Third party Involved</p>
+                    </li>
+                  </ul>
+                </mat-tab>
+                <mat-tab label="Injury Information">
+                  <ul class="list-group">
+                    <!-- <li class="list-group-item">{{ claimdata.body_injured}}<span>:Body Injured</span></li> -->
+                    <li class="list-group-item claim_subhead" *ngIf="claimdata.body_injured=='Yes'">
+                      <strong>Person Injury Information</strong>
+                      <ul class="list-group" *ngFor="let bi of claimdata.Injured_persons; index as j;">
+                        <li class="list-group-item">{{ bi.name}}<span>:Name</span></li>
+                        <li class="list-group-item">{{ bi.address}}<span>:Address</span></li>
+                        <li class="list-group-item">{{ bi.phone_number}}<span>:Cellphone</span></li>
+                      </ul>
+                    </li>
+                    <li *ngIf="claimdata.body_injured!='Yes'">
+                      <p>No person injury detail available. </p>
+                    </li>
+                  </ul>
+                </mat-tab>
+                <mat-tab label="Car damage Information">
+
+                  <ul class="list-group">
+
+                    <li class="list-group-item claim_subhead" *ngIf="claimdata.cardamageparts.length>0">
+                      <strong>Parts List</strong>
+                      <ul class="list-group" *ngFor="let cp of claimdata.cardamageparts; index as j;">
+                        <li class="list-group-item">{{ cp.part_name}}<span>:Part Name</span></li>
+                      </ul>
+                    </li>
+                    <li *ngIf="claimdata.cardamageparts.length==0">
+                      <p>No car damage information available. </p>
+                    </li>
+                  </ul>
+                </mat-tab>
+              </mat-tab-group>
+            </ul>
+
+            <!-- claim_response_end -->
+          </div>
+        </section>
+        <section id="footer">
+          <div class="container-fluid">
+            <div class="row d-block footer_content">
+              <ul class="footer_social">
+                <li> <a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                </li>
+                <li> <a href="#" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                </li>
+                <li> <a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                </li>
+                <li> <a href="#" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                </li>
+              </ul>
+              <p class="footercol_para">&#xA9; 2018 Aliquam Erat Volutpat.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>

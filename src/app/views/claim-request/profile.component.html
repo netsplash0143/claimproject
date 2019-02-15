@@ -1,0 +1,168 @@
+<!-- my_assessor_profile -->
+<div class="animated fadeIn" dir="rtl">
+	<div class="row">
+		<div class="col-md-8 mx-auto">
+			<div class="card">
+				<div class="card-header">
+					<strong>Profile</strong> Details
+				</div>
+				<div class="card-body" *ngIf="current_user">
+
+					<div class="form-group row">
+						<label class="col-md-5 col-form-label" for="hf-email">First Name</label>
+						<div class="col-md-7">
+							<p>{{current_user.Firstname}}</p>
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-md-5 col-form-label" for="hf-email">Last Name</label>
+						<div class="col-md-7">
+							<p>{{current_user.Lastname}}</p>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-5 col-form-label" for="hf-email">Email</label>
+						<div class="col-md-7">
+							<p>{{current_user.email}}</p>
+						</div>
+
+					</div>
+					<div class="form-group row">
+						<label class="col-md-5 col-form-label" for="hf-role">Role</label>
+						<div class="col-md-7">
+							<p>{{role}}</p>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-5 col-form-label" for="hf-role">Cell Phone Number</label>
+						<div class="col-md-7">
+							<p>{{current_user.cell_phone_number}}</p>
+						</div>
+					</div>
+					<hr>
+					<div class="form-group row">
+						<label class="col-md-5 col-form-label" for="hf-role">City</label>
+						<div class="col-md-7">
+							<p>{{current_user.city}}</p>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-5 col-form-label" for="hf-role">Work Radius</label>
+						<div class="col-md-7">
+							<p dir="ltr">{{current_user.radius}} Miles</p>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer">
+					<button type="reset" class="btn pull-right btn-primary" (click)="editModal.show()"><i class="fa fa-dot-circle-o"></i>
+						Edit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div bsModal #editModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	 aria-hidden="true">
+		<div class="modal-dialog modal-info" role="document">
+			<div class="modal-content">
+				<div class="modal-header my_custm_modal_header" dir="ltr">
+					<h4 class="modal-title my_custm_modal_titile">Edit Profile</h4>
+					<button type="button" class="close" (click)="editModal.hide()" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form [formGroup]="validations_form" novalidate (ngSubmit)="update_profile()">
+					<div class="modal-body">
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label" for="hf-email">First Name</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" placeholder="First Name" formControlName="Firstname">
+							</div>
+
+						</div>
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label" for="hf-email">Last Name</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" placeholder="Last Name" formControlName="Lastname">
+							</div>
+
+						</div>
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label" for="hf-city">City</label>
+							<div class="col-md-9">
+								<input ngx-google-places-autocomplete [options]="options" class="form-control" formControlName="city" #placesRef="ngx-places"
+								 (onAddressChange)="onAssessorAddressChange($event)" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label" for="hf-rad">Location radius</label>
+							<div class="col-md-9">
+								<input type="number" min="0" class="form-control" formControlName="radius">
+							</div>
+						</div>
+						<hr>
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label" for="hf-bin">Business ID Number</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" formControlName="Business_id_number">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-3 col-form-label" for="hf-ln">License Number</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" formControlName="License_number">
+							</div>
+						</div>
+							<!-- start -->
+							<div class="form-row align-items-center">
+									<div class="col-md-12">Credit Card Details</div>
+								  </div>
+								  <div class="form-row">
+									<div class="col-md-6">
+									  <div class="input-group mb-3">
+										<input type="text" class="form-control" [ngClass]="{ 'is-invalid':f.card_holdername.errors && f.card_holdername.touched }"
+										  placeholder="Name of Cardholder" formControlName="card_holdername">
+									  </div>
+									</div>
+									<div class="col-md-6">
+									  <div class="input-group mb-3">
+										<input type="text" class="form-control" [ngClass]="{ 'is-invalid':f.card_number.errors && f.card_number.touched }"
+										  placeholder="Card Number" formControlName="card_number">
+									  </div>
+									</div>
+								  </div>
+								  <div class="form-row">
+									<div class="col-md-8">
+									  <div class="form-group">
+										<label><span class="hidden-xs">Expiration</span> </label>
+										<div class="input-group">
+										  <input type="number" class="form-control" [ngClass]="{ 'is-invalid':f.card_exp_month.errors && f.card_exp_month.touched }"
+											placeholder="MM" formControlName="card_exp_month">
+										  <input type="number" class="form-control" [ngClass]="{ 'is-invalid':f.card_exp_year.errors && f.card_exp_year.touched }"
+											placeholder="YY" formControlName="card_exp_year">
+										</div>
+									  </div>
+									</div>
+									<div class="col-md-4">
+									  <div class="form-group">
+										<label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV
+										  <i class="fa fa-question-circle"></i></label>
+										<input type="number" class="form-control" [ngClass]="{ 'is-invalid':f.card_cvv.errors && f.card_cvv.touched }"
+										  formControlName="card_cvv">
+									  </div>
+									</div>
+								  </div>
+							<!-- end -->
+					</div>
+					<div class="modal-footer">
+					
+						<button type="button" class="btn btn-secondary" (click)="editModal.hide()">Close</button>
+						<button type="submit" class="btn btn-info" [disabled]="!validations_form.valid">Save Changes</button>
+						<span class="badge badge-success">{{response}}</span>
+					</div>
+				</form>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</div>

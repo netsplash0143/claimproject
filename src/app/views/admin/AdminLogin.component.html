@@ -1,0 +1,65 @@
+<div class="app-body" id="hello_back">
+  <main class="main d-flex align-items-center my_login_main">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-6 mx-auto login_main_box">
+          <div class="card-group">
+            <div class="card p-4 login_left_box">
+              <div class="card-body">
+                <form [formGroup]="validations_form" novalidate (ngSubmit)="loginAsAdmin()">
+                  <h1 class="login-heading text-right">Admin Login</h1>
+                  <p class="text-muted login-subtext text-right">Sign In to your account</p>
+                  <p class="error text-right" *ngIf="error!=false">{{error_msg}}</p>
+                  <div class="input-group mb-3">
+                  
+                    <input type="text" class="form-control" placeholder="Mobile Number" formControlName="mobile_number">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="icon-phone"></i></span>
+                      </div>
+                  </div>
+
+                  <div *ngIf="validations_form.controls['mobile_number'].invalid && (validations_form.controls['mobile_number'].dirty || validations_form.controls['mobile_number'].touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="validations_form.controls['mobile_number'].errors.required">
+                      Mobile Number is required
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-4">
+                   
+                    <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                      </div>
+                  </div>
+                  <div *ngIf="validations_form.controls['password'].invalid && (validations_form.controls['password'].dirty || validations_form.controls['password'].touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="validations_form.controls['password'].errors.required">
+                      Password is required
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6 col-md-7 col-lg-7 col-xl-6">
+                      <button type="button" class="btn btn-link px-0" (click)="redirect_forget_admin_password()">Forgot
+                        password</button>
+                    </div>
+                    <div class="col-6 col-md-5 col-lg-5 col-xl-6">
+                      <button type="submit" class="btn btn-primary px-4 my_login_align" [disabled]="!validations_form.valid">Login</button>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12 text-center">
+                      <a class="nav-link" [routerLink]="['/home']"><span>Back to Home</span></a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,120 @@
+<div class="animated fadeIn">
+  <div class="row">
+      <div bsModal #changepassModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-info" role="document">
+        <div class="modal-content" id="rating_content_box">
+          <form [formGroup]="pwdform" novalidate (ngSubmit)="updatepassword()">
+            <div class="modal-header">
+              <h4 class="modal-title">Change Password</h4>
+              <p class="modal-subtitle">Name:{{ companyinfo.name}}</p>
+              <button type="button" class="close" (click)="changepassModal.hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <input type="password" class="form-control" placeholder="Current Password" formControlName="currentpassword">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                          <input type="password" class="form-control" placeholder="New Password" formControlName="newpassword">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" [disabled]="!pwdform.valid">Update Changes</button>
+            </div>
+          </form>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="col-6 col-md-3 col-lg-3">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="nav-icon icon-energy bg-primary p-3 font-2xl ml-3 float-right"></i>
+          <div class="h5 text-primary mb-0 mt-2">{{ activeclaims.length}}</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">Total Active Claims</div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted text-right" [routerLink]="['/insurance-dashboard/active-list']"><i
+              class="fa fa-angle-left float-left font-lg"></i>View More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3 col-lg-3">
+      <div class="card">
+        <div class="card-body p-3 clearfix">
+          <i class="nav-icon icon-book-open bg-primary p-3 font-2xl ml-3 float-right"></i>
+          <div class="h5 text-primary mb-0 mt-2">{{ oldclaims.length}}</div>
+          <div class="text-muted text-uppercase font-weight-bold font-xs">Total Completed claims</div>
+        </div>
+        <div class="card-footer px-3 py-2">
+          <a class="font-weight-bold font-xs btn-block text-muted text-right" [routerLink]="['/insurance-dashboard/history-list']"><i
+              class="fa fa-angle-left float-left font-lg"></i>View More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-6 col-lg-6">
+      <div class="card">
+        <!-- <div class="card-header">
+          <p class="basictitle"> Company Details <i class="fa fa-align-justify"></i></p>
+        </div> -->
+        <form [formGroup]="validations_form" novalidate (ngSubmit)="updateCoy()">
+          <div class="card-body">
+            <div class="form-group row">
+              <div class="col-md-9">
+                <input type="text" class="form-control" placeholder="Enter Name" formControlName="name">
+              </div>
+              <label class="col-md-3 col-form-label" for="hf-name">Name</label>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-9">
+                <div class="custom_img_upld">
+                  <img src="{{logo}}" *ngIf="logo" alt="Snow" style="width:100%">
+                  <img src="http://goo.gl/pB9rpQ" *ngIf="!logo" alt="Snow" style="width:100%">
+                  <input type="file" style="display:none"  accept="image/*" #fileinput formControlName="logofile" (change)="onFileselected($event)" />
+                  <button class="btn btn-info" (click)="fileinput.click();$event.preventDefault()">{{btnname}}</button>
+                </div>
+              </div>
+              <label class="col-md-3 col-form-label" for="hf-file">Logo</label>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-9">
+                <input ngx-google-places-autocomplete class="form-control" formControlName="address" placeholder="Addresss"
+                  #placesRef="ngx-places" (onAddressChange)="onAddressChange($event)" id="ga" />
+
+              </div>
+              <label class="col-md-3 col-form-label" for="hf-address">Address</label>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-9">
+                <input type="text" formControlName="zipcode" class="form-control" placeholder="Postal Code">
+              </div>
+              <label class="col-md-3 col-form-label" for="hf-zipcode">Postal Code</label>
+            </div>
+
+          </div>
+          <div class="card-footer text-right" >
+              <button type="button" class="btn btn-sm btn-info pull-left" (click)="changepassModal.show();$event.preventDefault()"> Change Password <i
+                class="fa fa-pencil-square-o"></i> </button>
+            <button type="submit" class="btn btn-sm btn-success"> Update Information <i class="fa fa-dot-circle-o"></i></button>
+            
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

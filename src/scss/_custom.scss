@@ -1,0 +1,20 @@
+// Here you can add other styles
+.app-body .form-control.is-invalid {
+border-color: #ff3c3c;
+background-color:#fadada;
+}
+.app-body .form-control.is-invalid::-webkit-input-placeholder{
+color:#ff0000 ;
+}
+.app-body .form-control.is-invalid:-ms-input-placeholder{
+color:#ff0000 ;
+}
+.app-body .form-control.is-invalid::-ms-input-placeholder{
+color:#ff0000 ;
+}
+.app-body .form-control.is-invalid::-moz-placeholder{
+color:#ff0000 ;
+}
+.app-body .form-control.is-invalid::placeholder{
+color:#ff0000 ;
+}

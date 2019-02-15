@@ -1,0 +1,61 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i>Claims List
+          <span class="badge badge-success">{{response}}</span>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Claim Unique Id</th>
+                <th>Insured Id</th>
+                <th>Insurance Company Name</th>
+                <th>Insurance Agent Name</th>
+                <th>Car Model</th>
+                <th>Car Manufacturer</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor = "let claim of claims_list">
+                <td>{{claim.claim_unq_id}}</td>
+                <td>{{claim.Insured_id_number}}</td>
+                <td>{{claim.Insurance_company_name}}</td>
+                <td>{{claim.Insurance_agent_name}}</td>
+                <td>{{claim.car_model}}</td>
+                <td>{{claim.car_manufacturer}}</td>
+                <td>
+                  <span class="badge badge-success">Active</span>
+                </td>
+                <td>
+                  <div class="col-6 col-sm-4 col-md mb-3 mb-xl-0 text-center">
+                    <button type="button" class="btn btn-sm btn-pill btn-primary" (click)="claim_info(claim.id)">Info</button>
+                    <button type="button" class="btn btn-sm btn-pill btn-danger" (click)="delete_claim(claim.id)">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+<!--           <nav>
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">4</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </nav> -->
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

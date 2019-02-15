@@ -1,0 +1,290 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div bsModal #changepassModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-info" role="document">
+        <div class="modal-content" id="rating_content_box">
+          <form [formGroup]="pwdform" novalidate (ngSubmit)="updatepassword()">
+            <div class="modal-header">
+              <h4 class="modal-title">Change Password</h4>
+              <p class="modal-subtitle">CellPhone Number:{{ garageinfo.cell_phone_number}}</p>
+              <button type="button" class="close" (click)="changepassModal.hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Current Password" formControlName="currentpassword">
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="fa fa-key"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <input type="password" class="form-control" placeholder="New Password" formControlName="newpassword">
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="fa fa-key"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" [disabled]="!pwdform.valid">Update Changes</button>
+            </div>
+          </form>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div bsModal #ConfirmationModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-info modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">CONFIRMATION BOX</h4>
+            <p class="modal-subtitle">CellPhone Number:{{ garageinfo.cell_phone_number}}</p>
+            <button type="button" class="close" (click)="ConfirmationModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body my_custom_modal">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="alert alert-success">
+                  <p>Garage:{{ garageinfo.Name}}</p>
+                  <p *ngIf="garageinfo.active==0"><i class="fa fa-inbox" aria-hidden="true"></i> Do you really want to
+                    Activate Garage Account?</p>
+                  <p *ngIf="garageinfo.active==1"><i class="fa fa-inbox" aria-hidden="true"></i> Do you really want to
+                    Deactivate Garage Account?</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="update_status()"><i class="fa fa-thumbs-o-up"
+                aria-hidden="true"></i> Confirmed</button>
+            <button type="button" class="btn btn-danger" id="cancelstate" (click)="ConfirmationModal.hide()"><i class="fa fa-thumbs-o-down"
+                aria-hidden="true"></i> Cancel</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-header">
+          <p class="basictitle">Garage Listing <i class="fa fa-align-justify"></i></p>
+        </div>
+        <div class="card-body table-responsive">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Status</th>
+                <th>CellPhone Verification</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let garage of garagelist; let i = index">
+                <td> <button type="button" class="btn btn-block btn-xs btn-primary" (click)="edit_garage(garage.user_id,i)">Edit</button></td>
+                <td>
+                  <div *ngIf="garage.active==0" class="badge badge-danger">Inactive</div>
+                  <div *ngIf="garage.active==1" class="badge badge-success">Active</div>
+                </td>
+                <td>
+                  <div *ngIf="garage.verified==0"><button class="btn btn-info btn-sm" (click)="openconfirmform(garage.user_id,i)">Verify
+                      Now</button></div>
+                  <div *ngIf="garage.verified==1" class="badge badge-success">Verified</div>
+                </td>
+                <td>{{garage.cell_phone_number}}</td>
+                <td>{{garage.email}}</td>
+                <td>{{garage.Name}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card" *ngIf="is_confirmed_trigger!=true" dir="rtl">
+        <div class="card-header">
+          <p class="basictitle"><i class="fa fa-align-justify"></i> Register Assessor</p>
+        </div>
+        <form [formGroup]="garage_form" novalidate (ngSubmit)="register_garage()" #garageform="ngForm">
+          <div class="card-body">
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-home"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Garage Name" formControlName="Name">
+
+            </div>
+            <div *ngIf="garage_form.controls['Name'].invalid && (garage_form.controls['Name'].dirty || garage_form.controls['Name'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="garage_form.controls['Name'].errors.required">
+                Garage Name is required.
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="icon-user"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Contact Person Name" formControlName="Contact_name">
+            </div>
+            <div *ngIf="garage_form.controls['Contact_name'].invalid && (garage_form.controls['Contact_name'].dirty || garage_form.controls['Contact_name'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="garage_form.controls['Contact_name'].errors.required">
+                Contact Person Name is required.
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-id-card-o"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="License Number" formControlName="License_number">
+            </div>
+            <div *ngIf="garage_form.controls['License_number'].invalid && (garage_form.controls['License_number'].dirty || garage_form.controls['License_number'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="garage_form.controls['License_number'].errors.required">
+                License Number is required.
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-id-card-o"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Business Id Number" formControlName="business_id_number">
+            </div>
+            <div *ngIf="garage_form.controls['business_id_number'].invalid && (garage_form.controls['business_id_number'].dirty || garage_form.controls['business_id_number'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="garage_form.controls['business_id_number'].errors.required">
+                Business Id Number is required.
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="icon-envelope"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Email" formControlName="email">
+
+            </div>
+            <div *ngIf="garage_form.controls['email'].invalid && (garage_form.controls['email'].dirty || garage_form.controls['email'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="garage_form.controls['email'].errors.required">
+                Email is required.
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="icon-phone"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Mobile Number" formControlName="cell_phone_number">
+            </div>
+            <div *ngIf="garage_form.controls['cell_phone_number'].invalid && (garage_form.controls['cell_phone_number'].dirty || garage_form.controls['cell_phone_number'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="garage_form.controls['cell_phone_number'].errors.required">
+                Cellphone Number is required.
+              </div>
+            </div>
+
+            <div class="input-group mb-4">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-address-card-o"></i></span>
+              </div>
+              <input ngx-google-places-autocomplete class="form-control" formControlName="city" #placesRef="ngx-places"
+                (onAddressChange)="onGarageAddressChange($event)" #garageaddress id="ga" />
+
+            </div>
+            <div *ngIf="garage_form.controls['city'].invalid && (garage_form.controls['city'].dirty || garage_form.controls['city'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="garage_form.controls['city'].errors.required">
+                City is required.
+              </div>
+            </div>
+            <div class="input-group mb-4">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-bookmark"></i></span>
+              </div>
+              <select class="form-control" formControlName="authorized_importer">
+                <option value="">Are you a authorized Importer</option>
+                <option value="1">yes</option>
+                <option value="0">no</option>
+              </select>
+            </div>
+            <div *ngIf="garage_form.controls['authorized_importer'].invalid && (garage_form.controls['authorized_importer'].dirty || garage_form.controls['authorized_importer'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="garage_form.controls['authorized_importer'].errors.required">
+                Authorized Importer is required.
+              </div>
+            </div>
+            <div class="input-group mb-3" *ngIf="isedit!=true">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="icon-lock"></i></span>
+              </div>
+              <input type="password" class="form-control" placeholder="Password" formControlName="password">
+
+            </div>
+            <div *ngIf="garage_form.controls['password'].invalid && (garage_form.controls['password'].dirty || garage_form.controls['password'].touched)"
+              class="alert alert-danger">
+              <div *ngIf="garage_form.controls['password'].errors.required">
+                Password is required.
+              </div>
+            </div>
+            <div class="card-footer text-right" *ngIf="isedit==false">
+              <button type="submit" class="btn btn-sm btn-success" [disabled]="!garage_form.valid">Create
+                Account</button>
+              <button type="reset" class="btn btn-sm btn-info my_pad_left" (click)="resetform()"><i class="fa fa-ban"></i>
+                Reset</button>
+            </div>
+          </div>
+        </form>
+        <div class="card-footer text-right" *ngIf="isedit==true">
+          <button type="button" class="btn btn-sm btn-info my_pad_left" (click)="cancelupdate()"><i class="fa fa-ban"></i>
+            Cancel</button>
+          <button type="button" class="btn btn-sm btn-primary my_pad_left" (click)="updateGarage()"><i class="fa fa-pencil-square-o"></i>
+            Update </button>
+          <button type="button" class="btn btn-sm btn-success my_pad_left" (click)="changepassModal.show()"><i class="fa fa-pencil-square-o"></i>
+            Change Password </button>
+          <button type="button" *ngIf="this.garageinfo.active==1" class="btn btn-sm btn-danger" data-toggle="modal"
+            (click)="ConfirmationModal.show()">Delete Account</button>
+          <button type="button" *ngIf="this.garageinfo.active==0" class="btn btn-sm btn-info" data-toggle="modal"
+            (click)="ConfirmationModal.show()">Activate Account</button>
+        </div>
+      </div>
+
+      <div class="card" *ngIf="is_confirmed_trigger==true">
+        <div class="card-header">
+          <p class="basictitle"><i class="fa fa-align-justify"></i>Confirm Garage Registration</p>
+        </div>
+        <form [formGroup]="confirmform" novalidate (ngSubmit)="confirm_register()">
+          <div class="card-body">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="icon-lock"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Confirmation Code" formControlName="confirmation_code">
+            </div>
+          </div>
+          <div class="card-footer text-right">
+            <button type="submit" class="btn btn-sm btn-primary my_pad_left"><i class="fa fa-pencil-square-o"></i>Confirm
+            </button>
+            <button type="button" class="btn btn-sm btn-info my_pad_left" (click)="cancelconfirm()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

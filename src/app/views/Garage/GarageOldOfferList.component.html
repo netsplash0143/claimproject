@@ -1,0 +1,50 @@
+<div class="animated fadeIn" dir="rtl">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <p class="basictitle"><i class="fa fa-align-justify"></i> Claim Offer Listing</p>
+          <div *ngIf="response1!=''">
+            <div [ngClass]="(errflag1==false)?'alert alert-success':'alert alert-info'">{{response1}}</div>
+          </div>
+        </div>
+        <div class="card-body table-responsive">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Claim Unique Id</th>
+                <th>Insured Name</th>
+                <th>Insurance Company Name</th>
+                <th>Car Model</th>
+                <th>Car Manufacturer</th>
+                <th>Assessor Name</th>
+                <th>Claim status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="claimoffers">
+              <tr *ngFor="let claim of claimoffers; let i = index">
+
+                <td>{{claim.claim_unq_id}}</td>
+                <td>{{claim.Insured_name}}</td>
+                <td>{{claim.Insurance_company_name}}</td>
+                <td>{{claim.car_model}}</td>
+                <td>{{claim.car_manufacturer}}</td>
+                <td>{{claim.assessor_detail.Name}}</td>
+                <td>
+                  <div [ngClass]="{'offer-accepted':'badge badge-success'}[claim.status]">{{ claim.status}}</div>
+                </td>
+                <td>
+                  <span [ngClass]="{ 'declined':'badge badge-danger'}[claim.offer_details.offer_status]" *ngIf="claim.offer_details.offer_status=='declined'">{{
+                    claim.offer_details.offer_status}}</span>
+                  <a [routerLink]="['job-details/',claim.offer_details.id]" *ngIf="claim.offer_details.offer_status=='accepted'"
+                    class="btn btn-sm btn-pill btn-primary">Job Details</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

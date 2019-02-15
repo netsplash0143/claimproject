@@ -1,0 +1,23 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card" *ngIf="assessorinfo">
+        <div class="card-header" >
+          <strong>Working location radius: {{ assessorinfo.radius *1.60934}} KM</strong>
+        </div>
+        <div class="card-body">
+          <agm-map [latitude]="currentlat" [longitude]="currentlng" [zoom]="zoom">
+            <agm-marker [latitude]="currentlat" [longitude]="currentlng" [iconUrl]="'assets/img/brand/ball_marker.png'"></agm-marker>
+            <agm-circle [latitude]="currentlat" [longitude]="currentlng" [radius]="radius" [circleDraggable]="cDraggable"
+              [editable]="cDraggable" [fillColor]="'purple'">
+            </agm-circle>
+            <!-- <agm-marker *ngFor="let assessor of assessorList; let i = index" [latitude]="assessor.latitude" [longitude]="assessor.longitude"
+              [iconUrl]="'assets/img/brand/assessor_marker.png'"></agm-marker> -->
+          </agm-map>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

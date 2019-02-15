@@ -1,0 +1,23 @@
+import { Injectable } from '@angular/core';
+import {
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Router
+} from '@angular/router';
+import { ApiService } from '../api.service';
+
+
+@Injectable()
+export class AdminAuthGuard implements CanActivate {
+  constructor(private ApiService: ApiService, private router: Router) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (this.ApiService.isAuth()==true && localStorage.getItem('role')=='admin') {
+      console.log('Admin guard:'+this.ApiService.isAuth());
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+}
